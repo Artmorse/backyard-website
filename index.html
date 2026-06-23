@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Backyard - Course Nature en Hauts-de-France</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom cursor - daisy flower */
+        * {
+            cursor: none !important;
+        }
+
+        #cursor {
+            position: fixed;
+            width: 24px;
+            height: 24px;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s ease;
+        }
+
+        /* Custom color palette */
+        :root {
+            --forest-green: #2d5016;
+            --meadow-green: #7cb342;
+            --canal-blue: #5ba3d0;
+            --warm-yellow: #fdb924;
+            --daisy-white: #ffffff;
+            --beige: #f5f1e8;
+        }
+
+        body {
+            background-color: var(--beige);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        /* Hero illustration */
+        .hero-illustration {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+        }
+
+        /* Animated elements */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes sway {
+            0%, 100% { transform: translateX(0px) rotate(0deg); }
+            50% { transform: translateX(2px) rotate(1deg); }
+        }
+
+        @keyframes cloud-drift {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(50px); }
+        }
+
+        .floating { animation: float 3s ease-in-out infinite; }
+        .swaying { animation: sway 2s ease-in-out infinite; }
+        .cloud { animation: cloud-drift 30s linear infinite; }
+
+        /* Smooth rounded sections */
+        .section-rounded {
+            border-radius: 3rem 3rem 0 0;
+        }
+
+        /* Custom Tailwind colors */
+        .text-forest { color: var(--forest-green); }
+        .text-meadow { color: var(--meadow-green); }
+        .text-canal { color: var(--canal-blue); }
+        .text-warm { color: var(--warm-yellow); }
+        .bg-forest { background-color: var(--forest-green); }
+        .bg-meadow { background-color: var(--meadow-green); }
+        .bg-canal { background-color: var(--canal-blue); }
+        .bg-warm { background-color: var(--warm-yellow); }
+        .bg-beige { background-color: var(--beige); }
+
+        /* Daisy decoration */
+        .daisy {
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #fdb924 20%, #ffffff 20%, #ffffff 60%, transparent 60%);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .daisy::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 50% 0%, white 15%, transparent 15%),
+                radial-gradient(circle at 85% 15%, white 15%, transparent 15%),
+                radial-gradient(circle at 100% 50%, white 15%, transparent 15%),
+                radial-gradient(circle at 85% 85%, white 15%, transparent 15%),
+                radial-gradient(circle at 50% 100%, white 15%, transparent 15%),
+                radial-gradient(circle at 15% 85%, white 15%, transparent 15%),
+                radial-gradient(circle at 0% 50%, white 15%, transparent 15%),
+                radial-gradient(circle at 15% 15%, white 15%, transparent 15%);
+        }
+    </style>
+</head>
+<body class="bg-beige text-forest">
+
+    <!-- Custom cursor -->
+    <div id="cursor">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="3" fill="#fdb924" stroke="#2d5016" stroke-width="0.5"/>
+            <circle cx="12" cy="6" r="2" fill="white" stroke="#2d5016" stroke-width="0.5"/>
+            <circle cx="17" cy="8" r="2" fill="white" stroke="#2d5016" stroke-width="0.5"/>
+            <circle cx="18" cy="12" r="2" fill="white" stroke="#2d5016" stroke-width="0.5"/>
+            <circle cx="17" cy="16" r="2" fill="white" stroke="#2d5016" stroke-width="0.5"/>
+            <circle cx="12" cy="18" r="2" fill="white" stroke="#2d5016" stroke-width="0.5"/>
+            <circle cx="7" cy="16" r="2" fill="white" stroke="#2d5016" stroke-width="0.5"/>
+            <circle cx="6" cy="12" r="2" fill="white" stroke="#2d5016" stroke-width="0.5"/>
+            <circle cx="7" cy="8" r="2" fill="white" stroke="#2d5016" stroke-width="0.5"/>
+        </svg>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero-illustration relative overflow-hidden" style="background: linear-gradient(to bottom, #87ceeb 0%, #b0d9f0 50%, var(--meadow-green) 100%);">
+        <!-- Decorative daisies scattered -->
+        <div class="absolute top-16 left-[10%] swaying">
+            <svg width="40" height="40" viewBox="0 0 20 20">
+                <circle cx="10" cy="10" r="3" fill="#fdb924"/>
+                <ellipse cx="10" cy="4" rx="2" ry="3" fill="white"/>
+                <ellipse cx="16" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="10" cy="16" rx="2" ry="3" fill="white"/>
+                <ellipse cx="4" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="14" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(45 14 6)"/>
+                <ellipse cx="14" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(-45 14 14)"/>
+                <ellipse cx="6" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(45 6 14)"/>
+                <ellipse cx="6" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(-45 6 6)"/>
+            </svg>
+        </div>
+        <div class="absolute top-32 right-[15%] swaying" style="animation-delay: -0.5s;">
+            <svg width="35" height="35" viewBox="0 0 20 20">
+                <circle cx="10" cy="10" r="3" fill="#fdb924"/>
+                <ellipse cx="10" cy="4" rx="2" ry="3" fill="white"/>
+                <ellipse cx="16" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="10" cy="16" rx="2" ry="3" fill="white"/>
+                <ellipse cx="4" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="14" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(45 14 6)"/>
+                <ellipse cx="14" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(-45 14 14)"/>
+                <ellipse cx="6" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(45 6 14)"/>
+                <ellipse cx="6" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(-45 6 6)"/>
+            </svg>
+        </div>
+        <div class="absolute bottom-32 left-[20%] swaying" style="animation-delay: -1s;">
+            <svg width="45" height="45" viewBox="0 0 20 20">
+                <circle cx="10" cy="10" r="3" fill="#fdb924"/>
+                <ellipse cx="10" cy="4" rx="2" ry="3" fill="white"/>
+                <ellipse cx="16" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="10" cy="16" rx="2" ry="3" fill="white"/>
+                <ellipse cx="4" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="14" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(45 14 6)"/>
+                <ellipse cx="14" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(-45 14 14)"/>
+                <ellipse cx="6" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(45 6 14)"/>
+                <ellipse cx="6" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(-45 6 6)"/>
+            </svg>
+        </div>
+        <div class="absolute top-48 left-[35%] swaying" style="animation-delay: -1.5s;">
+            <svg width="30" height="30" viewBox="0 0 20 20">
+                <circle cx="10" cy="10" r="3" fill="#fdb924"/>
+                <ellipse cx="10" cy="4" rx="2" ry="3" fill="white"/>
+                <ellipse cx="16" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="10" cy="16" rx="2" ry="3" fill="white"/>
+                <ellipse cx="4" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="14" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(45 14 6)"/>
+                <ellipse cx="14" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(-45 14 14)"/>
+                <ellipse cx="6" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(45 6 14)"/>
+                <ellipse cx="6" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(-45 6 6)"/>
+            </svg>
+        </div>
+        <div class="absolute bottom-24 right-[25%] swaying" style="animation-delay: -0.8s;">
+            <svg width="38" height="38" viewBox="0 0 20 20">
+                <circle cx="10" cy="10" r="3" fill="#fdb924"/>
+                <ellipse cx="10" cy="4" rx="2" ry="3" fill="white"/>
+                <ellipse cx="16" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="10" cy="16" rx="2" ry="3" fill="white"/>
+                <ellipse cx="4" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="14" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(45 14 6)"/>
+                <ellipse cx="14" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(-45 14 14)"/>
+                <ellipse cx="6" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(45 6 14)"/>
+                <ellipse cx="6" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(-45 6 6)"/>
+            </svg>
+        </div>
+        <div class="absolute top-24 right-[30%] swaying" style="animation-delay: -0.3s;">
+            <svg width="32" height="32" viewBox="0 0 20 20">
+                <circle cx="10" cy="10" r="3" fill="#fdb924"/>
+                <ellipse cx="10" cy="4" rx="2" ry="3" fill="white"/>
+                <ellipse cx="16" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="10" cy="16" rx="2" ry="3" fill="white"/>
+                <ellipse cx="4" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="14" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(45 14 6)"/>
+                <ellipse cx="14" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(-45 14 14)"/>
+                <ellipse cx="6" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(45 6 14)"/>
+                <ellipse cx="6" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(-45 6 6)"/>
+            </svg>
+        </div>
+        <div class="absolute bottom-40 left-[8%] swaying" style="animation-delay: -1.2s;">
+            <svg width="42" height="42" viewBox="0 0 20 20">
+                <circle cx="10" cy="10" r="3" fill="#fdb924"/>
+                <ellipse cx="10" cy="4" rx="2" ry="3" fill="white"/>
+                <ellipse cx="16" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="10" cy="16" rx="2" ry="3" fill="white"/>
+                <ellipse cx="4" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="14" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(45 14 6)"/>
+                <ellipse cx="14" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(-45 14 14)"/>
+                <ellipse cx="6" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(45 6 14)"/>
+                <ellipse cx="6" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(-45 6 6)"/>
+            </svg>
+        </div>
+        <div class="absolute top-40 left-[65%] swaying" style="animation-delay: -0.7s;">
+            <svg width="36" height="36" viewBox="0 0 20 20">
+                <circle cx="10" cy="10" r="3" fill="#fdb924"/>
+                <ellipse cx="10" cy="4" rx="2" ry="3" fill="white"/>
+                <ellipse cx="16" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="10" cy="16" rx="2" ry="3" fill="white"/>
+                <ellipse cx="4" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="14" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(45 14 6)"/>
+                <ellipse cx="14" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(-45 14 14)"/>
+                <ellipse cx="6" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(45 6 14)"/>
+                <ellipse cx="6" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(-45 6 6)"/>
+            </svg>
+        </div>
+        <div class="absolute bottom-16 right-[8%] swaying" style="animation-delay: -1.8s;">
+            <svg width="34" height="34" viewBox="0 0 20 20">
+                <circle cx="10" cy="10" r="3" fill="#fdb924"/>
+                <ellipse cx="10" cy="4" rx="2" ry="3" fill="white"/>
+                <ellipse cx="16" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="10" cy="16" rx="2" ry="3" fill="white"/>
+                <ellipse cx="4" cy="10" rx="3" ry="2" fill="white"/>
+                <ellipse cx="14" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(45 14 6)"/>
+                <ellipse cx="14" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(-45 14 14)"/>
+                <ellipse cx="6" cy="14" rx="2" ry="2.5" fill="white" transform="rotate(45 6 14)"/>
+                <ellipse cx="6" cy="6" rx="2" ry="2.5" fill="white" transform="rotate(-45 6 6)"/>
+            </svg>
+        </div>
+
+        <!-- Sun decoration -->
+        <div class="absolute top-16 right-16 w-20 h-20 rounded-full floating" style="background: var(--warm-yellow); box-shadow: 0 0 40px rgba(253, 185, 36, 0.4);"></div>
+
+        <!-- Hero text -->
+        <div class="relative z-10 flex items-center justify-center h-full">
+            <div class="text-center text-white px-4">
+                <h1 class="text-7xl md:text-9xl font-bold mb-6 tracking-tight" style="text-shadow: 0 4px 20px rgba(45, 80, 22, 0.3);">The Backyard</h1>
+                <p class="text-2xl md:text-3xl mb-4" style="text-shadow: 0 2px 10px rgba(45, 80, 22, 0.3);">Une aventure entre amis au bord du canal</p>
+                <p class="text-lg md:text-xl mb-10 opacity-90" style="text-shadow: 0 2px 10px rgba(45, 80, 22, 0.3);">26 septembre 2026 • Hauts-de-France</p>
+                <a href="#event" class="inline-block px-10 py-5 bg-white text-forest rounded-full font-semibold text-lg hover:scale-105 transition-transform shadow-xl">
+                    Découvrir l'événement
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10">
+            <svg class="w-8 h-8 text-white floating" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Countdown Section -->
+    <section class="bg-forest text-white py-16 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8">Compte à rebours</h2>
+            <div id="countdown" class="grid grid-cols-4 gap-4 md:gap-8">
+                <div class="bg-white bg-opacity-10 rounded-2xl p-4 md:p-6">
+                    <div id="days" class="text-4xl md:text-6xl font-bold mb-2">--</div>
+                    <div class="text-sm md:text-base opacity-90">Jours</div>
+                </div>
+                <div class="bg-white bg-opacity-10 rounded-2xl p-4 md:p-6">
+                    <div id="hours" class="text-4xl md:text-6xl font-bold mb-2">--</div>
+                    <div class="text-sm md:text-base opacity-90">Heures</div>
+                </div>
+                <div class="bg-white bg-opacity-10 rounded-2xl p-4 md:p-6">
+                    <div id="minutes" class="text-4xl md:text-6xl font-bold mb-2">--</div>
+                    <div class="text-sm md:text-base opacity-90">Minutes</div>
+                </div>
+                <div class="bg-white bg-opacity-10 rounded-2xl p-4 md:p-6">
+                    <div id="seconds" class="text-4xl md:text-6xl font-bold mb-2">--</div>
+                    <div class="text-sm md:text-base opacity-90">Secondes</div>
+                </div>
+            </div>
+            <p class="mt-6 text-lg opacity-90">Jusqu'au premier départ !</p>
+        </div>
+    </section>
+
+    <!-- The Concept -->
+    <section id="concept" class="section-rounded relative bg-white py-20 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 text-forest">Le concept Backyard</h2>
+            <div class="prose prose-lg mx-auto text-gray-700 leading-relaxed">
+                <p class="text-xl mb-6">
+                    Le Backyard, c'est un défi simple et convivial : courir autant de tours que possible d'un parcours de 6,7 km de 10h à 20h.
+                </p>
+                <p class="text-lg mb-6">
+                    Chaque heure, un nouveau départ. Vous devez finir votre tour avant le départ suivant pour continuer l'aventure.
+                    Quand le groupe se réduit, les liens se renforcent. Qui restera debout jusqu'à la fin ?
+                </p>
+                <p class="text-lg text-meadow font-semibold">
+                    Une première édition entre amis, où l'endurance rencontre la convivialité.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Event Information -->
+    <section id="event" class="bg-beige py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center text-forest">L'événement</h2>
+
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <!-- Date -->
+                <div class="bg-white rounded-3xl p-8 text-center shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="text-warm text-5xl mb-4">📅</div>
+                    <h3 class="text-2xl font-bold mb-3 text-forest">Date</h3>
+                    <p class="text-lg text-gray-700">Samedi 26 Septembre 2026</p>
+                    <p class="text-sm text-gray-500 mt-2">RDV dès 8h • Premier départ à 10h</p>
+                </div>
+
+                <!-- Location -->
+                <div class="bg-white rounded-3xl p-8 text-center shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="text-canal text-5xl mb-4">📍</div>
+                    <h3 class="text-2xl font-bold mb-3 text-forest">Lieu</h3>
+                    <p id="location-text" class="text-lg text-gray-700 font-semibold mb-2">Région de Lille</p>
+                    <div id="location-countdown" class="text-sm text-gray-500">
+                        <p class="mb-2">Lieu exact révélé dans :</p>
+                        <div class="flex justify-center gap-2 text-canal font-mono font-bold">
+                            <div class="flex flex-col">
+                                <span id="loc-days" class="text-2xl">00</span>
+                                <span class="text-xs">jours</span>
+                            </div>
+                            <span class="text-2xl">:</span>
+                            <div class="flex flex-col">
+                                <span id="loc-hours" class="text-2xl">00</span>
+                                <span class="text-xs">heures</span>
+                            </div>
+                            <span class="text-2xl">:</span>
+                            <div class="flex flex-col">
+                                <span id="loc-minutes" class="text-2xl">00</span>
+                                <span class="text-xs">min</span>
+                            </div>
+                            <span class="text-2xl">:</span>
+                            <div class="flex flex-col">
+                                <span id="loc-seconds" class="text-2xl">00</span>
+                                <span class="text-xs">sec</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p id="location-revealed" class="text-sm text-gray-500 mt-2 hidden">📍 Lieu exact annoncé !</p>
+                </div>
+
+                <!-- Distance -->
+                <div class="bg-white rounded-3xl p-8 text-center shadow-sm hover:shadow-lg transition-shadow">
+                    <div class="text-meadow text-5xl mb-4">🏃</div>
+                    <h3 class="text-2xl font-bold mb-3 text-forest">Parcours</h3>
+                    <p class="text-lg text-gray-700">6,7 km / tour</p>
+                    <p class="text-sm text-gray-500 mt-2">Un départ chaque heure</p>
+                </div>
+            </div>
+
+            <!-- Rules -->
+            <div class="bg-white rounded-3xl p-10 shadow-sm">
+                <h3 class="text-3xl font-bold mb-6 text-forest text-center">Les règles du jeu</h3>
+                <div class="grid md:grid-cols-2 gap-6 text-gray-700">
+                    <div class="flex gap-4">
+                        <div class="text-2xl">✓</div>
+                        <div>
+                            <p class="font-semibold mb-1">Départs horaires</p>
+                            <p class="text-sm">Chaque tour démarre pile à l'heure (10h, 11h, 12h...)</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-2xl">✓</div>
+                        <div>
+                            <p class="font-semibold mb-1">Finir dans l'heure</p>
+                            <p class="text-sm">Vous devez terminer avant le prochain départ</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-2xl">✓</div>
+                        <div>
+                            <p class="font-semibold mb-1">Élimination</p>
+                            <p class="text-sm">Si vous ne finissez pas à temps, votre aventure s'arrête</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-2xl">✓</div>
+                        <div>
+                            <p class="font-semibold mb-1">Fin de la course</p>
+                            <p class="text-sm">La course se termine à 20h ou s'il ne reste qu'un coureur</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Story -->
+    <section id="story" class="bg-white py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold mb-8 text-center text-forest">L'aventure</h2>
+            <div class="prose prose-lg mx-auto text-gray-700 leading-relaxed">
+                <p class="text-lg mb-6">
+                    Imaginé par deux amis passionnés de course nature, The Backyard vous emmène dans un lieu tenu secret jusqu'au 24 septembre.
+                    Une surprise au cœur des Hauts-de-France, entre nature authentique et convivialité.
+                </p>
+                <p class="text-lg mb-6">
+                    De 10h à 20h, vivez une journée d'aventure où chaque tour devient une nouvelle histoire partagée avec les autres coureurs.
+                    Et pour finir en beauté, une petite soirée vous attend pour célébrer tous ensemble cette belle journée !
+                </p>
+                <p class="text-lg text-meadow font-semibold">
+                    Pas de chrono stressant, pas de podium. Juste vous, la nature, et le défi de tenir jusqu'au bout.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Practical Info -->
+    <section id="practical" class="bg-beige py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center text-forest">Infos pratiques</h2>
+
+            <div class="space-y-6">
+                <div class="bg-white rounded-2xl p-6 shadow-sm">
+                    <h3 class="text-xl font-bold mb-3 text-forest">🎒 Équipement recommandé</h3>
+                    <p class="text-gray-700">Chaussures de trail, sac d'hydratation, vêtements adaptés à la météo, frontale (au cas où), et surtout : votre bonne humeur !</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-sm">
+                    <h3 class="text-xl font-bold mb-3 text-forest">🍎 Ravitaillement</h3>
+                    <p class="text-gray-700">Un point ravitaillement sera disponible au camp de base avec boissons, fruits et en-cas. Prévoyez vos propres barres pour le parcours.</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-sm">
+                    <h3 class="text-xl font-bold mb-3 text-forest">🚗 Accès & parking</h3>
+                    <p class="text-gray-700">Parking gratuit sur place. Le lieu exact et la trace GPX seront communiqués le jeudi 24 septembre à 8h. Covoiturage fortement encouragé !</p>
+                </div>
+
+                <div class="bg-white rounded-2xl p-6 shadow-sm">
+                    <h3 class="text-xl font-bold mb-3 text-forest">⛺ Ambiance camp de base</h3>
+                    <p class="text-gray-700">Entre chaque tour, profitez de l'espace détente, musique, jeux et rencontres. Amenez votre chaise pliante pour plus de confort ! Le soir, restez pour la petite soirée qui clôturera cette belle journée.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="bg-white py-20 px-4">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center text-forest">Questions fréquentes</h2>
+
+            <div class="space-y-4">
+                <details class="bg-beige rounded-2xl p-6 group">
+                    <summary class="font-bold text-lg text-forest list-none flex items-center justify-between">
+                        <span>Quand aurai-je le lieu exact et la trace GPX ?</span>
+                        <span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+                    </summary>
+                    <p class="mt-4 text-gray-700">Le lieu exact et la trace GPX seront communiqués le jeudi 24 septembre à 8h du matin. Vous recevrez toutes les informations par email (coordonnées GPS, accès, carte du parcours et fichier GPX à télécharger).</p>
+                </details>
+
+                <details class="bg-beige rounded-2xl p-6 group">
+                    <summary class="font-bold text-lg text-forest list-none flex items-center justify-between">
+                        <span>Quel niveau faut-il avoir ?</span>
+                        <span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+                    </summary>
+                    <p class="mt-4 text-gray-700">Tout niveau est bienvenu ! Il suffit de pouvoir courir 6,7 km en moins d'une heure. Le format permet à chacun de trouver son rythme.</p>
+                </details>
+
+                <details class="bg-beige rounded-2xl p-6 group">
+                    <summary class="font-bold text-lg text-forest list-none flex items-center justify-between">
+                        <span>Combien de temps dure l'événement ?</span>
+                        <span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+                    </summary>
+                    <p class="mt-4 text-gray-700">La course se déroule de 10h à 20h. Certains tiendront 3-4 tours, d'autres bien plus. L'événement continue jusqu'à ce qu'il ne reste qu'un coureur ou jusqu'à 20h.</p>
+                </details>
+
+                <details class="bg-beige rounded-2xl p-6 group">
+                    <summary class="font-bold text-lg text-forest list-none flex items-center justify-between">
+                        <span>Peut-on venir en spectateur ?</span>
+                        <span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+                    </summary>
+                    <p class="mt-4 text-gray-700">Absolument ! Vos amis et famille sont les bienvenus pour encourager et profiter de l'ambiance au camp de base.</p>
+                </details>
+
+                <details class="bg-beige rounded-2xl p-6 group">
+                    <summary class="font-bold text-lg text-forest list-none flex items-center justify-between">
+                        <span>Quel est le tarif ?</span>
+                        <span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+                    </summary>
+                    <p class="mt-4 text-gray-700">Une participation de 10€ est demandée pour couvrir les frais de ravitaillement et de la soirée. Cet événement est organisé entre amis, par passion !</p>
+                </details>
+
+                <details class="bg-beige rounded-2xl p-6 group">
+                    <summary class="font-bold text-lg text-forest list-none flex items-center justify-between">
+                        <span>Que se passe-t-il en cas de mauvais temps ?</span>
+                        <span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+                    </summary>
+                    <p class="mt-4 text-gray-700">L'événement est maintenu sauf conditions météo dangereuses. Prévoyez des vêtements adaptés. On court sous la pluie, dans la boue, c'est ça l'aventure !</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Registration -->
+    <section id="register" class="bg-meadow py-20 px-4">
+        <div class="max-w-3xl mx-auto text-center text-white">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Prêt pour l'aventure ?</h2>
+            <p class="text-xl mb-8">Rejoignez-nous pour une journée inoubliable au bord du canal.</p>
+            <a href="mailto:contact@thebackyard.run?subject=Inscription%20The%20Backyard"
+               class="inline-block px-10 py-5 bg-white text-forest rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl">
+                S'inscrire maintenant
+            </a>
+            <p class="mt-6 text-sm opacity-90">Places limitées • 10€ par personne • Inscription par email</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-forest text-white py-12 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="mb-6">
+                <img src="logo.png" alt="The Backyard Logo" class="w-24 h-24 mx-auto rounded-full shadow-lg">
+            </div>
+            <p class="mb-4 text-lg">The Backyard - Une aventure entre amis</p>
+            <p class="text-sm opacity-75">Organisé avec ❤️ par deux passionnés de nature et de course</p>
+            <div class="mt-6 text-sm opacity-75">
+                <a href="mailto:contact@thebackyard.run" class="hover:text-warm transition-colors">contact@thebackyard.run</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Custom cursor
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX - 12 + 'px';
+            cursor.style.top = e.clientY - 12 + 'px';
+        });
+
+        // No parallax - removed per user request
+
+        // Smooth reveal on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+
+        // Initial reveal for hero
+        document.querySelector('.hero-illustration').style.opacity = '1';
+        document.querySelector('.hero-illustration').style.transform = 'translateY(0)';
+
+        // Countdown timers
+        const raceStartDate = new Date('2026-09-26T10:00:00').getTime();
+        const locationRevealDate = new Date('2026-09-24T08:00:00').getTime();
+
+        // Main countdown to race start
+        function updateMainCountdown() {
+            const now = new Date().getTime();
+            const distance = raceStartDate - now;
+
+            if (distance < 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        // Location countdown and reveal
+        function updateLocationCountdown() {
+            const now = new Date().getTime();
+            const distance = locationRevealDate - now;
+
+            if (distance < 0) {
+                // Révélation !
+                document.getElementById('location-text').textContent = 'Canal de la Sensée';
+                document.getElementById('location-countdown').classList.add('hidden');
+                document.getElementById('location-revealed').classList.remove('hidden');
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('loc-days').textContent = String(days).padStart(2, '0');
+            document.getElementById('loc-hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('loc-minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('loc-seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        // Initialize all countdowns
+        updateMainCountdown();
+        updateLocationCountdown();
+
+        setInterval(updateMainCountdown, 1000);
+        setInterval(updateLocationCountdown, 1000);
+    </script>
+</body>
+</html>
