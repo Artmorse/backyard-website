@@ -13,6 +13,7 @@ function createInscriptionForm() {
 
   form.setDescription(
     'Inscris-toi à la course Loop & Bloom ! 🌸\n\n' +
+    'Participation : 10 € par personne.\n\n' +
     'Pour ne rien manquer (news, horaires, dernières infos), suis-nous sur Instagram : @loopandbloom.backyard → https://instagram.com/loopandbloom.backyard\n\n' +
     'Un doute ? Écris-nous à loopandbloom.backyard@gmail.com ou contacte nous sur Instagram.'
   );
