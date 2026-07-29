@@ -63,9 +63,15 @@
             100% { transform: translateX(50px); }
         }
 
+        @keyframes cta-pulse {
+            0%, 100% { box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 0 0 0 0 rgba(253, 185, 36, 0.5); }
+            50% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), 0 0 0 12px rgba(253, 185, 36, 0); }
+        }
+
         .floating { animation: float 3s ease-in-out infinite; }
         .swaying { animation: sway 2s ease-in-out infinite; }
         .cloud { animation: cloud-drift 30s linear infinite; }
+        .cta-pulse { animation: cta-pulse 2.5s ease-in-out infinite; }
 
         /* Smooth rounded sections */
         .section-rounded {
@@ -138,9 +144,16 @@
                 <h1 class="text-7xl md:text-9xl font-bold mb-6 tracking-tight" style="font-family: 'Playfair Display', serif; text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 2px 10px rgba(0, 0, 0, 0.3);">Loop & Bloom</h1>
                 <p class="text-2xl md:text-3xl mb-4" style="text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 1px 5px rgba(0, 0, 0, 0.3);">Une aventure entre amis au bord du canal</p>
                 <p class="text-lg md:text-xl mb-10 opacity-90" style="text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 1px 5px rgba(0, 0, 0, 0.3);">26 septembre 2026 • Hauts-de-France</p>
-                <a href="#event" class="inline-block px-10 py-5 bg-white text-forest rounded-full font-semibold text-lg hover:scale-105 transition-transform shadow-xl">
-                    Découvrir l'événement
-                </a>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSd6OuYaSNFJ_eGdh6Ja_BlthJ8BpoHWvSoIBBcr0lUARQwWdg/viewform"
+                       target="_blank" rel="noopener"
+                       class="cta-pulse inline-block px-10 py-5 bg-warm text-forest rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl">
+                        S'inscrire maintenant
+                    </a>
+                    <a href="#event" class="inline-block px-8 py-5 bg-white/20 backdrop-blur-sm border border-white/60 text-white rounded-full font-semibold text-lg hover:bg-white/30 hover:scale-105 transition-all">
+                        Découvrir l'événement
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -344,15 +357,9 @@
         <div class="max-w-4xl mx-auto">
             <h2 class="text-4xl md:text-5xl font-bold mb-12 text-center text-forest">Questions fréquentes</h2>
 
-            <div class="space-y-4">
-                <details class="bg-beige rounded-2xl p-6 group">
-                    <summary class="font-bold text-lg text-forest list-none flex items-center justify-between">
-                        <span>Quand aurai-je le lieu exact et la trace GPX ?</span>
-                        <span class="text-2xl group-open:rotate-45 transition-transform">+</span>
-                    </summary>
-                    <p class="mt-4 text-gray-700">Le lieu exact et la trace GPX seront communiqués le jeudi 24 septembre à 8h du matin. Vous recevrez toutes les informations par email (coordonnées GPS, accès, carte du parcours et fichier GPX à télécharger).</p>
-                </details>
-
+            <!-- La course -->
+            <h3 class="text-2xl font-bold mb-4 text-meadow">La course</h3>
+            <div class="space-y-4 mb-12">
                 <details class="bg-beige rounded-2xl p-6 group">
                     <summary class="font-bold text-lg text-forest list-none flex items-center justify-between">
                         <span>Quel niveau faut-il avoir ?</span>
@@ -371,12 +378,44 @@
 
                 <details class="bg-beige rounded-2xl p-6 group">
                     <summary class="font-bold text-lg text-forest list-none flex items-center justify-between">
+                        <span>Que se passe-t-il en cas de mauvais temps ?</span>
+                        <span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+                    </summary>
+                    <p class="mt-4 text-gray-700">L'événement est maintenu sauf conditions météo dangereuses. Prévoyez des vêtements adaptés. On court sous la pluie, dans la boue, c'est ça l'aventure !</p>
+                </details>
+            </div>
+
+            <!-- Sur place -->
+            <h3 class="text-2xl font-bold mb-4 text-canal">Sur place</h3>
+            <div class="space-y-4 mb-12">
+                <details class="bg-beige rounded-2xl p-6 group">
+                    <summary class="font-bold text-lg text-forest list-none flex items-center justify-between">
+                        <span>Quand aurai-je le lieu exact et la trace GPX ?</span>
+                        <span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+                    </summary>
+                    <p class="mt-4 text-gray-700">Le lieu exact et la trace GPX seront communiqués le jeudi 24 septembre à 8h du matin. Vous recevrez toutes les informations par email (coordonnées GPS, accès, carte du parcours et fichier GPX à télécharger).</p>
+                </details>
+
+                <details class="bg-beige rounded-2xl p-6 group">
+                    <summary class="font-bold text-lg text-forest list-none flex items-center justify-between">
                         <span>Peut-on venir en spectateur ?</span>
                         <span class="text-2xl group-open:rotate-45 transition-transform">+</span>
                     </summary>
                     <p class="mt-4 text-gray-700">Absolument ! Vos amis et famille sont les bienvenus pour encourager et profiter de l'ambiance au camp de base.</p>
                 </details>
 
+                <details class="bg-beige rounded-2xl p-6 group">
+                    <summary class="font-bold text-lg text-forest list-none flex items-center justify-between">
+                        <span>Y a-t-il des toilettes sur place ?</span>
+                        <span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+                    </summary>
+                    <p class="mt-4 text-gray-700">Non, il n'y a pas de toilettes sur place. Pensez-y avant de venir et prévoyez en conséquence, la nature reste la nature !</p>
+                </details>
+            </div>
+
+            <!-- Inscription & récompenses -->
+            <h3 class="text-2xl font-bold mb-4 text-warm">Inscription & récompenses</h3>
+            <div class="space-y-4">
                 <details class="bg-beige rounded-2xl p-6 group">
                     <summary class="font-bold text-lg text-forest list-none flex items-center justify-between">
                         <span>Quel est le tarif ?</span>
@@ -387,18 +426,18 @@
 
                 <details class="bg-beige rounded-2xl p-6 group">
                     <summary class="font-bold text-lg text-forest list-none flex items-center justify-between">
-                        <span>Que se passe-t-il en cas de mauvais temps ?</span>
+                        <span>Y aura-t-il des t-shirts ?</span>
                         <span class="text-2xl group-open:rotate-45 transition-transform">+</span>
                     </summary>
-                    <p class="mt-4 text-gray-700">L'événement est maintenu sauf conditions météo dangereuses. Prévoyez des vêtements adaptés. On court sous la pluie, dans la boue, c'est ça l'aventure !</p>
+                    <p class="mt-4 text-gray-700">Pas pour cette première édition. On garde ça pour une prochaine fois si l'aventure continue !</p>
                 </details>
 
                 <details class="bg-beige rounded-2xl p-6 group">
                     <summary class="font-bold text-lg text-forest list-none flex items-center justify-between">
-                        <span>Y a-t-il des toilettes sur place ?</span>
+                        <span>Y aura-t-il des médailles ?</span>
                         <span class="text-2xl group-open:rotate-45 transition-transform">+</span>
                     </summary>
-                    <p class="mt-4 text-gray-700">Non, il n'y a pas de toilettes sur place. Pensez-y avant de venir et prévoyez en conséquence, la nature reste la nature !</p>
+                    <p class="mt-4 text-gray-700">Pas pour cette première édition non plus. L'esprit reste avant tout convivial : ici, la vraie récompense c'est le défi partagé et les souvenirs !</p>
                 </details>
             </div>
         </div>
@@ -411,7 +450,7 @@
             <p class="text-xl mb-8">Rejoignez-nous pour une journée inoubliable au bord du canal.</p>
             <a href="https://docs.google.com/forms/d/e/1FAIpQLSd6OuYaSNFJ_eGdh6Ja_BlthJ8BpoHWvSoIBBcr0lUARQwWdg/viewform"
                target="_blank" rel="noopener"
-               class="inline-block px-10 py-5 bg-white text-forest rounded-full font-bold text-lg hover:scale-105 transition-transform shadow-xl">
+               class="cta-pulse inline-block px-12 py-6 bg-warm text-forest rounded-full font-bold text-xl hover:scale-105 transition-transform shadow-xl">
                 S'inscrire maintenant
             </a>
             <p class="mt-6 text-sm opacity-90">Places limitées • 10€ par personne • Inscription via le formulaire</p>
