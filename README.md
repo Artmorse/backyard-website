@@ -10,13 +10,13 @@ Le site présente le concept, le parcours, les infos pratiques et une FAQ, avec 
 | --- | --- |
 | `index.html` | Le site complet (une seule page, HTML + [Tailwind CSS](https://tailwindcss.com) via CDN, police *Playfair Display*). |
 | `banner.png`, `logo.png`, `icon.png` | Visuels du site. |
-| `CNAME` | Domaine personnalisé GitHub Pages : `backyard.lemorse.tech`. |
+| `CNAME` | Domaine personnalisé GitHub Pages : `loopandbloom.backyard.lemorse.tech`. |
 | `create-form.gs` | Script Google Apps Script qui génère le formulaire d'inscription (voir ci-dessous). |
 | `DESIGN_PROMPT.md` | Notes de design. |
 
 ## Hébergement
 
-Le site est une page statique servie via **GitHub Pages** sur le domaine `backyard.lemorse.tech` (configuré par le fichier `CNAME`). Tout push sur la branche `main` met le site à jour.
+Le site est une page statique servie via **GitHub Pages** sur le domaine `loopandbloom.backyard.lemorse.tech` (configuré par le fichier `CNAME`). Tout push sur la branche `main` met le site à jour.
 
 ## Développement local
 
@@ -62,6 +62,10 @@ Deux options :
 - **Éditer directement** le formulaire généré via son lien d'édition, pour de petits ajustements.
 
 Le lien Instagram et les intitulés des questions se trouvent en clair dans `create-form.gs`.
+
+### Limite d'inscriptions
+
+Le formulaire est **limité à 20 réponses** : une fois ce nombre atteint, il cesse d'accepter de nouvelles inscriptions. Cette limite est configurée **manuellement** dans le formulaire Google (Google Forms n'offre pas de réglage natif pour plafonner le nombre total de réponses).
 
 ## Contact
 
