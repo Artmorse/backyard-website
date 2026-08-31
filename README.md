@@ -10,13 +10,13 @@ Le site présente le concept, le parcours, les infos pratiques et une FAQ, avec 
 | --- | --- |
 | `index.html` | Le site complet (une seule page, HTML + [Tailwind CSS](https://tailwindcss.com) via CDN, police *Playfair Display*). |
 | `banner.png`, `logo.png`, `icon.png` | Visuels du site. |
-| `CNAME` | Domaine personnalisé GitHub Pages : `loopandbloom.backyard.lemorse.tech`. |
+| `CNAME` | Domaine personnalisé GitHub Pages : `loopandbloom.backyard.lemomorse.tech`. |
 | `create-form.gs` | Script Google Apps Script qui génère le formulaire d'inscription (voir ci-dessous). |
 | `DESIGN_PROMPT.md` | Notes de design. |
 
 ## Hébergement
 
-Le site est une page statique servie via **GitHub Pages** sur le domaine `loopandbloom.backyard.lemorse.tech` (configuré par le fichier `CNAME`). Tout push sur la branche `main` met le site à jour.
+Le site est une page statique servie via **GitHub Pages** sur le domaine `loopandbloom.backyard.lemomorse.tech` (configuré par le fichier `CNAME`). Tout push sur la branche `main` met le site à jour.
 
 ## Développement local
 
