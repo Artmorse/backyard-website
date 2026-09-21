@@ -1,0 +1,52 @@
+{{- /*
+  The opening: the illustration full screen, the wordmark over it, and the two
+  ways on — register, or read first.
+
+  The banner used to be a CSS background-image pointing at the 1.3 MB source.
+  It is an <img> now so it can be served as AVIF or WebP at the width the
+  screen actually asks for; `object-cover` reproduces `center/cover`.
+
+  No `.reveal` here: this section is what the visitor lands on, so it is never
+  faded in.
+*/ -}}
+{{- $e := site.Params.event }}
+<section class="relative h-dvh min-h-[600px] overflow-hidden">
+  {{- with site.Params.images.banner }}
+    {{ partial "picture.html" (dict
+        "path" .
+        "alt" ""
+        "sizes" "100vw"
+        "loading" "eager"
+        "class" "absolute inset-0 h-full w-full object-cover"
+    ) }}
+  {{- end }}
+
+  {{- /* The scrim: the illustration is bright and the wordmark sits on top of
+         it, so it is dimmed a quarter of a stop. */}}
+  <div class="relative z-10 flex h-full items-center justify-center bg-black/25">
+    <div class="px-4 text-center text-white text-shadow-hero">
+      <h1 class="mb-6 font-display text-7xl font-bold tracking-tight md:text-9xl">
+        {{ site.Title }}
+      </h1>
+      <p class="mb-4 text-2xl md:text-3xl">{{ $e.tagline }}</p>
+      <p class="mb-10 text-lg opacity-90 md:text-xl">
+        <time datetime="{{ $e.date }}">{{ $e.dateShort }}</time> • {{ $e.region }}
+      </p>
+
+      <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+        {{ partial "cta.html" (dict "size" "md") }}
+        <a href="#event" class="btn btn-ghost px-8 py-5 text-lg">
+          Découvrir l'événement
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {{- /* Scroll hint. Decorative: the section below it is reachable by every
+         other means. */}}
+  <div class="absolute bottom-8 left-1/2 z-10 -translate-x-1/2">
+    <svg class="floating h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+    </svg>
+  </div>
+</section>

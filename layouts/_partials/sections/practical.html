@@ -1,0 +1,19 @@
+{{- /* The practical notes, from data/practical.yaml. */ -}}
+<section id="practical" class="reveal bg-beige px-4 py-20">
+  <div class="mx-auto max-w-4xl">
+    {{ partial "section-heading.html" (dict "text" "Infos pratiques") }}
+
+    {{- with hugo.Data.practical }}
+      <div class="space-y-6">
+        {{- range . }}
+          <div class="card p-6">
+            <h3 class="mb-3 text-xl font-bold text-forest">
+              <span aria-hidden="true">{{ .icon }}</span> {{ .title }}
+            </h3>
+            <p class="text-body">{{ .body | markdownify }}</p>
+          </div>
+        {{- end }}
+      </div>
+    {{- end }}
+  </div>
+</section>

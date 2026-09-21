@@ -1,0 +1,25 @@
+{{- /*
+  Tab and home-screen icons, cut from the round logo.
+
+  The source is a 1.4 MB PNG, far too large to hand to a browser as a favicon,
+  so the sizes are cut at build time. WebP is not used here: the formats a
+  browser accepts for an icon are narrower than for a picture, and PNG is the
+  one every one of them reads.
+
+  The source has no alpha channel — it is a flat RGB illustration — so the iOS
+  icon needs no background painted under it: there is nothing for iOS to
+  composite onto black before applying its own rounded mask.
+*/ -}}
+{{- with resources.Get site.Params.images.icon }}
+  {{- with .Resize "32x32 png" }}
+    <link rel="icon" href="{{ .RelPermalink }}" sizes="32x32" type="image/png">
+  {{- end }}
+  {{- with .Resize "192x192 png" }}
+    <link rel="icon" href="{{ .RelPermalink }}" sizes="192x192" type="image/png">
+  {{- end }}
+  {{- with .Resize "180x180 png" }}
+    <link rel="apple-touch-icon" href="{{ .RelPermalink }}" sizes="180x180">
+  {{- end }}
+{{- else }}
+  {{- warnf "favicon.html: assets/%s not found" site.Params.images.icon }}
+{{- end }}

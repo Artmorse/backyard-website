@@ -1,0 +1,8 @@
+{{- /*
+  Public site: it is meant to be found. Everything is allowed, and the sitemap
+  is pointed at explicitly.
+*/ -}}
+User-agent: *
+Allow: /
+
+Sitemap: {{ "sitemap.xml" | absURL }}

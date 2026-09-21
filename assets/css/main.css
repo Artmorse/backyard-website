@@ -1,0 +1,443 @@
+@import "tailwindcss";
+@source "hugo_stats.json";
+
+/* ===========================================================================
+   Self-hosted fonts — no request to any third-party service.
+
+   Variable files (woff2): one request per family covers every weight the site
+   uses. Playfair Display carries the wordmark and the large headings, Inter
+   everything else.
+
+   The `latin-ext` cut is what serves the French typography the page relies on
+   beyond Latin-1 (œ, the curly apostrophe, the en dash); the browser fetches
+   it only if the page actually needs a glyph from its range.
+   =========================================================================== */
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/playfair-display-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/playfair-display-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193,
+    U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF,
+    U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020,
+    U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/* ===========================================================================
+   Visual identity — single source of truth.
+
+   Every colour on the site derives from this block. Nothing below, and no
+   template, writes a hexadecimal value.
+   =========================================================================== */
+
+/* Raw palette, taken from the logo: meadow, canal, September sunlight and the
+   white of the daisies, on natural beige.
+
+   Contrast, measured against the two page backgrounds (white / beige):
+     forest  9.25 / 8.20 — carries every size of text, everywhere
+     meadow  2.50 / 2.22 — decorative only
+     canal   2.77 / 2.46 — decorative only
+     warm    on forest 5.35 — the call to action, yellow on deep green
+
+   Meadow and canal are below the 4.5:1 that normal text needs and below the
+   3:1 that large text needs. They are used as they were before this site moved
+   to Hugo — the closing lines of the prose, the group headings of the FAQ, the
+   registration banner — so the port changes nothing visually. Deepening those
+   two is a design decision, not a migration one, and is left open. */
+:root {
+  --forest-green: #2d5016;
+  --meadow-green: #7cb342;
+  --canal-blue: #5ba3d0;
+  --warm-yellow: #fdb924;
+  --daisy-white: #ffffff;
+  --beige: #f5f1e8;
+
+  /* Neutrals for running text. These are the two greys the page used before the
+     move to Hugo (Tailwind's former gray-700 and gray-500), kept to the value
+     so that no paragraph shifts colour: 10.3:1 and 4.84:1 on white. */
+  --ink: #364153;
+  --ink-soft: #6a7282;
+}
+
+/* Semantic roles. Tailwind exposes each one both as a utility (bg-forest,
+   text-muted…) and as a variable (var(--color-forest)).
+
+   `--color-*: initial` drops Tailwind's default palette: the only colours the
+   utilities can name are the ones declared here, so a stray `text-sky-500`
+   fails loudly in review instead of quietly entering the design. */
+@theme {
+  --color-*: initial;
+
+  /* Brand colours, named as the illustration names them. */
+  --color-forest: var(--forest-green);
+  --color-meadow: var(--meadow-green);
+  --color-canal: var(--canal-blue);
+  --color-warm: var(--warm-yellow);
+  --color-beige: var(--beige);
+  --color-white: var(--daisy-white);
+
+  /* Roles. */
+  --color-primary: var(--forest-green);
+  --color-background: var(--beige);
+  --color-surface: var(--daisy-white);
+  --color-text: var(--forest-green);
+  --color-body: var(--ink);
+  --color-muted: var(--ink-soft);
+
+  /* Needed by the scrim over the hero photograph. */
+  --color-black: #000000;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-display: 'Playfair Display', ui-serif, Georgia, serif;
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+/* ===========================================================================
+   Base
+   =========================================================================== */
+
+@layer base {
+  html {
+    background-color: var(--color-background);
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  /* The hero is full-bleed and a few decorations drift sideways: without this a
+     phone gets a horizontal scrollbar. */
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3 {
+    line-height: 1.15;
+  }
+
+  a,
+  button,
+  summary {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-forest);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--color-warm);
+    color: var(--color-forest);
+  }
+}
+
+/* ===========================================================================
+   Components
+   =========================================================================== */
+
+@layer components {
+  /* --- The daisy cursor ---------------------------------------------------
+     The pointer is replaced by a drawn daisy that follows the mouse.
+
+     Gated on a fine pointer that can hover: on a touch screen there is no
+     cursor to replace, and hiding it there used to leave the drawn daisy
+     parked in the corner of the screen where it was never moved. Also gated on
+     `.js`, so the real pointer is never taken away from someone whose browser
+     did not run the script — without it the page would have no pointer at all. */
+  @media (hover: hover) and (pointer: fine) {
+    .js body.has-daisy-cursor,
+    .js body.has-daisy-cursor * {
+      cursor: none;
+    }
+  }
+
+  .daisy-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+    z-index: 9999;
+    display: none;
+  }
+
+  .js body.has-daisy-cursor .daisy-cursor {
+    display: block;
+  }
+
+  /* A yellow heart and eight white petals, outlined in forest green so the
+     flower stays legible over the hero photograph as well as over the beige. */
+  .daisy-cursor .daisy-heart,
+  .daisy-cursor .daisy-petal {
+    stroke: var(--color-forest);
+    stroke-width: 0.5;
+  }
+
+  .daisy-cursor .daisy-heart {
+    fill: var(--color-warm);
+  }
+
+  .daisy-cursor .daisy-petal {
+    fill: var(--color-white);
+  }
+
+  /* --- Buttons -----------------------------------------------------------
+     Two pills: the yellow one is the single call to action of the page, the
+     translucent one sits on the hero photograph next to it. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    font-weight: 700;
+    text-align: center;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .btn:hover {
+    transform: scale(1.05);
+  }
+
+  .btn-cta {
+    background-color: var(--color-warm);
+    color: var(--color-forest);
+    box-shadow: 0 10px 25px rgb(0 0 0 / 0.2);
+  }
+
+  .btn-ghost {
+    background-color: rgb(255 255 255 / 0.2);
+    border: 1px solid rgb(255 255 255 / 0.6);
+    color: var(--color-white);
+    font-weight: 600;
+    backdrop-filter: blur(4px);
+  }
+
+  .btn-ghost:hover {
+    background-color: rgb(255 255 255 / 0.3);
+  }
+
+  /* --- Hero --------------------------------------------------------------
+     The wordmark and its two lines sit on the illustration itself. The scrim
+     behind them takes it down a quarter of a stop; this is what keeps them
+     legible over the bright parts of it — the sky, the water — without
+     darkening the whole picture further.
+
+     Applied once to the text block and inherited, rather than repeated on each
+     of the three lines as it was before. */
+  .text-shadow-hero {
+    text-shadow: 0 4px 20px rgb(0 0 0 / 0.5), 0 2px 10px rgb(0 0 0 / 0.3);
+  }
+
+  /* --- Cards -------------------------------------------------------------
+     The white panel the page is built from: the three facts, the rules, the
+     practical notes. */
+  .card {
+    background-color: var(--color-surface);
+    border-radius: 1.5rem;
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+    transition: box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+
+  /* --- Sections ----------------------------------------------------------- */
+
+  /* The rounded shoulder that lifts a section over the one above it. */
+  .section-rounded {
+    border-radius: 3rem 3rem 0 0;
+  }
+
+  /* --- Prose -------------------------------------------------------------
+     The two passages written in Markdown (the concept, the story). The first
+     paragraph is set larger: it is the one that has to be read. */
+  .prose-section > p {
+    margin-top: 1.5rem;
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: var(--color-body);
+  }
+
+  .prose-section > p:first-child {
+    margin-top: 0;
+    font-size: 1.25rem;
+  }
+
+  .prose-section a {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .prose-section strong {
+    font-weight: 600;
+  }
+
+  /* --- FAQ ---------------------------------------------------------------
+     Native <details>: the browser handles opening, keyboard operation and
+     find-in-page on its own, so there is nothing to script here. */
+  .faq-item {
+    background-color: var(--color-background);
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+
+  .faq-item > summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 1.125rem;
+    color: var(--color-forest);
+    list-style: none;
+  }
+
+  /* Safari draws its own triangle without this. */
+  .faq-item > summary::-webkit-details-marker {
+    display: none;
+  }
+
+  /* The + that turns into a × when the answer opens. */
+  .faq-item > summary .faq-marker {
+    flex-shrink: 0;
+    font-size: 1.5rem;
+    line-height: 1;
+    transition: transform 0.3s ease;
+  }
+
+  .faq-item[open] > summary .faq-marker {
+    transform: rotate(45deg);
+  }
+
+  .faq-item > .faq-answer {
+    margin-top: 1rem;
+    color: var(--color-body);
+  }
+}
+
+/* ===========================================================================
+   Animations — gentle, of the outdoors: things drift and sway, nothing darts.
+   =========================================================================== */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes sway {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  50% { transform: translateX(2px) rotate(1deg); }
+}
+
+@keyframes cloud-drift {
+  from { transform: translateX(0); }
+  to { transform: translateX(50px); }
+}
+
+/* A halo that opens out of the call to action and fades, so the one button that
+   matters keeps catching the eye without moving. */
+@keyframes cta-pulse {
+  0%, 100% {
+    box-shadow: 0 10px 25px rgb(0 0 0 / 0.2), 0 0 0 0 rgb(253 185 36 / 0.5);
+  }
+  50% {
+    box-shadow: 0 10px 30px rgb(0 0 0 / 0.25), 0 0 0 12px rgb(253 185 36 / 0);
+  }
+}
+
+@layer utilities {
+  .floating { animation: float 3s ease-in-out infinite; }
+  .swaying { animation: sway 2s ease-in-out infinite; }
+  .cloud { animation: cloud-drift 30s linear infinite; }
+  .cta-pulse { animation: cta-pulse 2.5s ease-in-out infinite; }
+
+  /* Reveal on scroll.
+
+     The section is visible as written: the hiding is applied only under `.js`,
+     which the head sets before the first paint. Without a script the whole
+     page is simply there — the version this replaces hid every section with
+     inline styles from a script at the end of the body, which left the page
+     blank if that script never ran. */
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .js .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Strict respect of the system preference: no motion is ever forced. The drawn
+   cursor stays — it is a pointer, not an animation. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001s !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.001s !important;
+  }
+
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

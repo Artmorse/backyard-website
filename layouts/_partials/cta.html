@@ -1,0 +1,30 @@
+{{- /*
+  The registration button.
+
+  The page has exactly one call to action and it appears twice — once over the
+  hero, once at the foot of the page — so it is written here once.
+
+  If `registration.url` is empty in hugo.toml the button becomes a discreet
+  note: no one ever meets a dead link, and the page reads coherently in the
+  stretch before the form exists.
+
+  Parameters:
+    size  — "lg" for the closing banner, anything else for the hero
+    class — extra classes on the element
+*/ -}}
+{{- $r := site.Params.registration }}
+{{- $size := default "md" .size }}
+{{- $extra := default "" .class }}
+
+{{- $padding := cond (eq $size "lg") "px-12 py-6 text-xl" "px-10 py-5 text-lg" }}
+
+{{- with $r.url }}
+  <a href="{{ . }}" target="_blank" rel="noopener"
+     class="btn btn-cta cta-pulse {{ $padding }} {{ $extra }}">
+    {{ $r.label }}
+  </a>
+{{- else }}
+  <p class="btn {{ $padding }} {{ $extra }} border border-dashed border-white/60 text-white">
+    Inscriptions à venir
+  </p>
+{{- end }}

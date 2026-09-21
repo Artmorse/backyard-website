@@ -1,0 +1,18 @@
+{{- /*
+  The Umami tracker, loaded from Umami Cloud.
+
+  The one script of this project that is not built from assets/, and therefore
+  the one that carries no `integrity`: the file is remote and unversioned, so
+  Hugo has nothing to hash at build time, and a hash pinned by hand would take
+  the site down the day Umami ships a new tracker.
+
+  Serving it from this domain instead would defeat it: the tracker reports to
+  whichever domain serves it. Proxying it to get past ad blockers has been
+  considered and turned down — the undercount is accepted.
+
+  `defer` for the same reason as the site's own script: nothing here has to run
+  before the page is drawn.
+*/ -}}
+{{- with partial "func/analytics.html" . }}
+  <script defer src="{{ .src }}" data-website-id="{{ .websiteId }}"></script>
+{{- end }}

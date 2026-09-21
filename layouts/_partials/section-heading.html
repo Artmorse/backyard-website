@@ -1,0 +1,17 @@
+{{- /*
+  The <h2> that opens a section.
+
+  The token {brand} anywhere in the text is replaced by the event name set in
+  the display face, so a content file can write "Le concept {brand}" without
+  carrying any markup.
+
+  Parameters:
+    text  — the heading (required)
+    class — extra classes, for the rare heading that needs different spacing
+*/ -}}
+{{- $text := .text }}
+{{- $extra := default "mb-12" .class }}
+
+<h2 class="text-4xl md:text-5xl font-bold {{ $extra }} text-center text-forest">
+  {{- replace $text "{brand}" (partial "func/brand.html" .) | safeHTML -}}
+</h2>

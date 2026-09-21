@@ -1,0 +1,32 @@
+{{- /*
+  The one page.
+
+  This template is the running order and nothing else: every section is a
+  partial, and every word inside them comes from hugo.toml, from data/ or from
+  content/sections/. Reordering the page means reordering this list.
+*/ -}}
+{{ define "main" }}
+  {{ partial "sections/hero.html" . }}
+  {{ partial "sections/countdown.html" . }}
+
+  {{- /* The concept, centred, with the rounded shoulder that lifts it over the
+         deep green of the countdown. */}}
+  {{ partial "sections/prose.html" (dict
+      "page" (site.GetPage "/sections/concept")
+      "id" "concept"
+      "class" "section-rounded relative bg-white px-4 py-20"
+      "align" "center"
+  ) }}
+
+  {{ partial "sections/event.html" . }}
+
+  {{ partial "sections/prose.html" (dict
+      "page" (site.GetPage "/sections/story")
+      "id" "story"
+      "class" "bg-white px-4 py-20"
+  ) }}
+
+  {{ partial "sections/practical.html" . }}
+  {{ partial "sections/faq.html" . }}
+  {{ partial "sections/register.html" . }}
+{{ end }}

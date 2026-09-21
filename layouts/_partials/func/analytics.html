@@ -1,0 +1,23 @@
+{{- /*
+  Returns the audience measurement configuration, or nothing when there is
+  nothing to measure.
+
+  A single gate, so that `enable = false` or an empty `websiteId` in hugo.toml
+  is enough to take the tracker out of the build.
+
+  `hugo.IsProduction` rather than the `not hugo.IsDevelopment` used to decide
+  minifying and fingerprinting: those ask "should this build be optimised?",
+  this one asks "is this the site the runners read?". A build run under any
+  other environment must stay out of the figures.
+*/ -}}
+{{- $result := "" }}
+
+{{- if hugo.IsProduction }}
+  {{- with site.Params.analytics }}
+    {{- if and .enable .websiteId .src }}
+      {{- $result = . }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+
+{{- return $result }}

@@ -1,0 +1,43 @@
+{{- /*
+  The round mark, at a fixed display width.
+
+  It does not go through picture.html: this one is never laid out fluidly, so it
+  needs a 1x/2x pair rather than a srcset of widths. WebP with a PNG fallback,
+  and no AVIF — at these sizes the saving is a few hundred bytes and the mark is
+  drawn once per page.
+
+  The artwork carries the event name, so a call site that already states it in
+  text should pass an empty alt and let the mark be decorative.
+
+  Parameters:
+    width   — display width in CSS pixels (required); the srcset goes to 2x
+    alt     — alternative text; empty means decorative and gets aria-hidden
+    class   — classes applied to the <img>
+    loading — "eager" above the fold, "lazy" otherwise
+*/ -}}
+{{- $width := .width }}
+{{- $alt := default "" .alt }}
+{{- $class := default "" .class }}
+{{- $loading := default "lazy" .loading }}
+
+{{- with resources.Get site.Params.images.logo }}
+  {{- $1x := .Resize (printf "%dx png" $width) }}
+  {{- $2x := .Resize (printf "%dx png" (mul $width 2)) }}
+  {{- $w1 := .Resize (printf "%dx webp q82" $width) }}
+  {{- $w2 := .Resize (printf "%dx webp q82" (mul $width 2)) }}
+
+  <picture>
+    <source type="image/webp" srcset="{{ $w1.RelPermalink }} 1x, {{ $w2.RelPermalink }} 2x">
+    <img src="{{ $1x.RelPermalink }}"
+         srcset="{{ $1x.RelPermalink }} 1x, {{ $2x.RelPermalink }} 2x"
+         width="{{ $1x.Width }}"
+         height="{{ $1x.Height }}"
+         alt="{{ $alt }}"
+         {{ if not $alt }}aria-hidden="true"{{ end }}
+         loading="{{ $loading }}"
+         {{ if eq $loading "eager" }}fetchpriority="high"{{ else }}decoding="async"{{ end }}
+         class="{{ $class }}">
+  </picture>
+{{- else }}
+  {{- warnf "logo.html: assets/%s not found" site.Params.images.logo }}
+{{- end }}

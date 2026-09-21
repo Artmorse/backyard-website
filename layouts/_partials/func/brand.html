@@ -1,0 +1,11 @@
+{{- /*
+  Returns the event name set in the display face — the wordmark as a run of
+  text, for use inside a sentence or a heading.
+
+  The name itself comes from `title` in hugo.toml, so it is written once for the
+  whole site. Two ways in:
+
+    · {{< brand >}} in a Markdown file, through layouts/_shortcodes/brand.html;
+    · the token {brand} in a section's `heading`, substituted by home.html.
+*/ -}}
+{{- return (printf `<span class="font-display">%s</span>` site.Title | safeHTML) }}

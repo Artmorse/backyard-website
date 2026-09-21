@@ -1,0 +1,78 @@
+{{- /*
+  Responsive illustration.
+
+  The sources are flat PNGs of 1.3–1.4 MB with no alpha channel, which is why
+  the fallback is a JPEG rather than a PNG: nothing has to be kept transparent,
+  and a PNG of the banner at full width is an order of magnitude heavier than
+  it needs to be. AVIF first, WebP second, JPEG for anything that reads
+  neither.
+
+  Nothing is ever enlarged: a width wider than the source is skipped, so the
+  srcset stops at the native resolution instead of shipping an upscale.
+
+  Parameters:
+    path    — path inside assets/ (required)
+    alt     — alternative text (required; pass "" for a decorative image)
+    ratio   — optional crop, e.g. "16x9"; omitted keeps the source's own
+    sizes   — the sizes attribute (required in practice)
+    class   — classes applied to the <img>
+    loading — "eager" above the fold, "lazy" otherwise
+*/ -}}
+{{- $path := .path }}
+{{- $alt := default "" .alt }}
+{{- $ratio := .ratio }}
+{{- $sizes := default "100vw" .sizes }}
+{{- $class := default "" .class }}
+{{- $loading := default "lazy" .loading }}
+
+{{- with resources.Get $path }}
+  {{- $base := . }}
+
+  {{- if $ratio }}
+    {{- $parts := split $ratio "x" }}
+    {{- $h := math.Round (mul (div (float $base.Width) (float (index $parts 0))) (float (index $parts 1))) }}
+    {{- $base = $base.Fill (printf "%dx%.0f smart" $base.Width $h) }}
+  {{- end }}
+
+  {{- $widths := slice 640 960 1280 1600 1920 }}
+  {{- $avifs := slice }}
+  {{- $webps := slice }}
+  {{- $jpegs := slice }}
+
+  {{- range $widths }}
+    {{- if le . $base.Width }}
+      {{- $a := $base.Resize (printf "%dx avif q60" .) }}
+      {{- $avifs = $avifs | append (printf "%s %dw" $a.RelPermalink $a.Width) }}
+      {{- $w := $base.Resize (printf "%dx webp q80" .) }}
+      {{- $webps = $webps | append (printf "%s %dw" $w.RelPermalink $w.Width) }}
+      {{- $j := $base.Resize (printf "%dx jpg q82" .) }}
+      {{- $jpegs = $jpegs | append (printf "%s %dw" $j.RelPermalink $j.Width) }}
+    {{- end }}
+  {{- end }}
+
+  {{- /* A source narrower than the smallest step above would leave every list
+         empty, so it is served at its own size. */}}
+  {{- if not $jpegs }}
+    {{- $j := $base.Resize (printf "%dx jpg q82" $base.Width) }}
+    {{- $jpegs = $jpegs | append (printf "%s %dw" $j.RelPermalink $j.Width) }}
+  {{- end }}
+
+  {{- $fallback := $base.Resize (printf "%dx jpg q82" (math.Min 1280 $base.Width | int)) }}
+
+  <picture>
+    {{- with $avifs }}<source type="image/avif" srcset="{{ delimit . ", " }}" sizes="{{ $sizes }}">{{ end }}
+    {{- with $webps }}<source type="image/webp" srcset="{{ delimit . ", " }}" sizes="{{ $sizes }}">{{ end }}
+    <img src="{{ $fallback.RelPermalink }}"
+         srcset="{{ delimit $jpegs ", " }}"
+         sizes="{{ $sizes }}"
+         width="{{ $base.Width }}"
+         height="{{ $base.Height }}"
+         alt="{{ $alt }}"
+         {{ if not $alt }}aria-hidden="true"{{ end }}
+         loading="{{ $loading }}"
+         {{ if eq $loading "eager" }}fetchpriority="high"{{ else }}decoding="async"{{ end }}
+         class="{{ $class }}">
+  </picture>
+{{- else }}
+  {{- warnf "picture.html: image not found in assets/: %q" $path }}
+{{- end }}

@@ -1,0 +1,29 @@
+{{- /*
+  404 page, served by GitHub Pages on every unknown URL.
+
+  The site is one page, so there is only ever one place to send someone back to.
+*/ -}}
+{{ define "main" }}
+  <section class="flex min-h-dvh items-center justify-center bg-beige px-4 py-20">
+    <div class="mx-auto max-w-2xl text-center">
+      {{ partial "logo.html" (dict
+          "width" 96
+          "alt" ""
+          "class" "mx-auto h-24 w-24 rounded-full shadow-lg"
+          "loading" "eager"
+      ) }}
+
+      <h1 class="mt-8 font-display text-5xl font-bold text-forest md:text-6xl">
+        Page introuvable
+      </h1>
+      <p class="mt-6 text-lg text-body">
+        Cette page n'existe pas, ou plus. Tout {{ partial "func/brand.html" . }}
+        tient de toute façon sur une seule page.
+      </p>
+
+      <a href="{{ site.Home.RelPermalink }}" class="btn btn-cta mt-10 px-10 py-5 text-lg">
+        Revenir à l'accueil
+      </a>
+    </div>
+  </section>
+{{ end }}

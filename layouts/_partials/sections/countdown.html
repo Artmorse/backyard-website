@@ -1,0 +1,36 @@
+{{- /*
+  The countdown to the first start.
+
+  The target is rendered onto `data-countdown` from hugo.toml, with its UTC
+  offset, and main.js reads it from there — the date is written in one place for
+  the whole site.
+
+  The cells read "--" until the script fills them: that is what a visitor
+  without JavaScript is left with, which is why the date itself is stated in
+  full just below rather than only in the figures.
+*/ -}}
+{{- $e := site.Params.event }}
+{{- $units := slice
+      (dict "unit" "days" "label" "Jours")
+      (dict "unit" "hours" "label" "Heures")
+      (dict "unit" "minutes" "label" "Minutes")
+      (dict "unit" "seconds" "label" "Secondes")
+}}
+<section class="reveal bg-forest px-4 py-16 text-white">
+  <div class="mx-auto max-w-4xl text-center">
+    <h2 class="mb-8 text-3xl font-bold md:text-4xl">Compte à rebours</h2>
+
+    <div class="grid grid-cols-4 gap-4 md:gap-8" data-countdown="{{ $e.startsAt }}">
+      {{- range $units }}
+        <div class="rounded-2xl bg-white/10 p-4 md:p-6">
+          <div class="mb-2 text-4xl font-bold md:text-6xl" data-countdown-unit="{{ .unit }}">--</div>
+          <div class="text-sm opacity-90 md:text-base">{{ .label }}</div>
+        </div>
+      {{- end }}
+    </div>
+
+    <p class="mt-6 text-lg opacity-90">
+      Jusqu'au premier départ, le {{ $e.dateShort }} à {{ $e.firstStart }} !
+    </p>
+  </div>
+</section>

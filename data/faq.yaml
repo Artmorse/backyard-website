@@ -1,0 +1,46 @@
+# Frequently asked questions, grouped.
+#
+# The registration form ends with a free-text "Une question ?" field: this file
+# is where its answers land, which is why the groups are expected to grow.
+#
+# Order here is the order on the page, groups and questions alike.
+#
+#   title    — the group heading
+#   accent   — which brand colour the heading takes: meadow, canal or warm
+#   items[]  — question / answer, Markdown allowed in the answer
+
+- title: "La course"
+  accent: "meadow"
+  items:
+    - question: "Quel niveau faut-il avoir ?"
+      answer: "Tout niveau est bienvenu ! Il suffit de pouvoir courir 6,7 km en moins d'une heure. Le format permet à chacun de trouver son rythme."
+
+    - question: "Combien de temps dure l'événement ?"
+      answer: "La course se déroule de 10h à 20h. Certains tiendront 3-4 tours, d'autres bien plus. L'événement continue jusqu'à ce qu'il ne reste qu'un coureur ou jusqu'à 20h."
+
+    - question: "Que se passe-t-il en cas de mauvais temps ?"
+      answer: "L'événement est maintenu sauf conditions météo dangereuses. Prévoyez des vêtements adaptés. On court sous la pluie, dans la boue, c'est ça l'aventure !"
+
+- title: "Sur place"
+  accent: "canal"
+  items:
+    - question: "Quand aurai-je le lieu exact et la trace GPX ?"
+      answer: "Le lieu exact et la trace GPX seront communiqués le jeudi 24 septembre à 8h du matin. Vous recevrez toutes les informations par email (coordonnées GPS, accès, carte du parcours et fichier GPX à télécharger)."
+
+    - question: "Peut-on venir en spectateur ?"
+      answer: "Absolument ! Vos amis et famille sont les bienvenus pour encourager et profiter de l'ambiance au camp de base."
+
+    - question: "Y a-t-il des toilettes sur place ?"
+      answer: "Oui ! Des toilettes seront accessibles sur le parcours de 10h à 18h. En dehors de ces horaires, prévoyez en conséquence : la nature reste la nature !"
+
+- title: "Inscription & récompenses"
+  accent: "warm"
+  items:
+    - question: "Quel est le tarif ?"
+      answer: "Une participation de 10€ est demandée pour couvrir les frais de ravitaillement et de la soirée. Cet événement est organisé entre amis, par passion !"
+
+    - question: "Y aura-t-il des t-shirts ?"
+      answer: "Pas pour cette première édition. On garde ça pour une prochaine fois si l'aventure continue !"
+
+    - question: "Y aura-t-il des médailles ?"
+      answer: "Ça, c'est la surprise ! On ne dit rien pour le moment... Mais l'esprit reste avant tout convivial : ici, la vraie récompense c'est le défi partagé et les souvenirs !"

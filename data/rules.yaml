@@ -1,0 +1,19 @@
+# The rules of the game, as shown in the "L'événement" section.
+#
+# Order here is the order on the page. Adding a fifth rule is enough: the grid
+# reflows on its own.
+#
+#   title       — the rule in three or four words
+#   description — one sentence, Markdown allowed
+
+- title: "Départs horaires"
+  description: "Chaque tour démarre pile à l'heure (10h, 11h, 12h...)"
+
+- title: "Finir dans l'heure"
+  description: "Vous devez terminer avant le prochain départ"
+
+- title: "Élimination"
+  description: "Si vous ne finissez pas à temps, votre aventure s'arrête"
+
+- title: "Fin de la course"
+  description: "La course se termine à 20h ou s'il ne reste qu'un coureur"

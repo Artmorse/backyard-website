@@ -1,0 +1,19 @@
+{{- /*
+  The site's only script. Bundled and minified by Hugo, fingerprinted with an
+  integrity hash for every build but the development server's.
+
+  `defer`: none of it has to run before the page is drawn. The one thing that
+  does — marking the document as scripted — is a single inline line in the head.
+*/ -}}
+{{- with resources.Get "js/main.js" }}
+  {{- $opts := dict "minify" (not hugo.IsDevelopment) "target" "es2018" }}
+  {{- with . | js.Build $opts }}
+    {{- if hugo.IsDevelopment }}
+      <script src="{{ .RelPermalink }}" defer></script>
+    {{- else }}
+      {{- with . | fingerprint }}
+        <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous" defer></script>
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}

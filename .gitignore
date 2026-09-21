@@ -1,1 +1,30 @@
-.idea
+# Hugo
+/public/
+/resources/_gen/
+/.hugo_build.lock
+hugo_stats.json
+
+# Node
+/node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Editors & IDEs
+/.idea/
+/.vscode/
+*.swp
+*~
+
+# Tooling / AI assistants
+/.claude/
+CLAUDE.local.md
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+.comments/

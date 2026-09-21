@@ -1,0 +1,24 @@
+{
+  "name": "backyard-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Loop & Bloom — showcase site for a backyard ultra in Hauts-de-France",
+  "type": "commonjs",
+  "scripts": {
+    "start": "hugo server",
+    "build": "hugo build --gc --minify"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Artmorse/backyard-website.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Artmorse/backyard-website/issues"
+  },
+  "homepage": "https://github.com/Artmorse/backyard-website#readme",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

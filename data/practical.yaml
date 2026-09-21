@@ -1,0 +1,23 @@
+# The "Infos pratiques" cards.
+#
+# Order here is the order on the page.
+#
+#   icon  — a single emoji, shown before the heading
+#   title — the heading
+#   body  — one paragraph, Markdown allowed
+
+- icon: "🎒"
+  title: "Équipement recommandé"
+  body: "Chaussures de trail, sac d'hydratation, vêtements adaptés à la météo, frontale (au cas où), et surtout : votre bonne humeur !"
+
+- icon: "🍎"
+  title: "Ravitaillement"
+  body: "Un point ravitaillement sera disponible au camp de base avec boissons, fruits et en-cas. Prévoyez vos propres barres pour le parcours."
+
+- icon: "🚗"
+  title: "Accès & parking"
+  body: "Parking gratuit sur place. Le lieu exact et la trace GPX seront communiqués le jeudi 24 septembre à 8h. Covoiturage fortement encouragé !"
+
+- icon: "⛺"
+  title: "Ambiance camp de base"
+  body: "Entre chaque tour, profitez de l'espace détente, musique, jeux et rencontres. Amenez votre chaise pliante pour plus de confort ! Le soir, restez pour la petite soirée qui clôturera cette belle journée."

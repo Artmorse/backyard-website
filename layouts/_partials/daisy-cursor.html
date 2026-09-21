@@ -1,0 +1,27 @@
+{{- /*
+  The daisy that stands in for the mouse pointer — the one piece of whimsy the
+  design direction asks for by name.
+
+  Hidden until the script decides the visitor has a pointer worth replacing:
+  the rules live in main.css under `.has-daisy-cursor`, which main.js sets on
+  <body> only for a fine pointer that can hover. On a touch screen the flower
+  would otherwise sit unmoved in the top corner of the page.
+
+  Inline SVG rather than a file: eight petals and a heart, a few hundred bytes,
+  and it has to be painted the instant the pointer first moves. The petals and
+  the heart take their colours from the stylesheet, so the flower follows the
+  palette instead of pinning its own.
+*/ -}}
+<div class="daisy-cursor" aria-hidden="true">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <circle class="daisy-heart" cx="12" cy="12" r="3"/>
+    <circle class="daisy-petal" cx="12" cy="6" r="2"/>
+    <circle class="daisy-petal" cx="17" cy="8" r="2"/>
+    <circle class="daisy-petal" cx="18" cy="12" r="2"/>
+    <circle class="daisy-petal" cx="17" cy="16" r="2"/>
+    <circle class="daisy-petal" cx="12" cy="18" r="2"/>
+    <circle class="daisy-petal" cx="7" cy="16" r="2"/>
+    <circle class="daisy-petal" cx="6" cy="12" r="2"/>
+    <circle class="daisy-petal" cx="7" cy="8" r="2"/>
+  </svg>
+</div>
