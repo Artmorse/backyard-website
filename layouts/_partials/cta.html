@@ -8,6 +8,12 @@
   note: no one ever meets a dead link, and the page reads coherently in the
   stretch before the form exists.
 
+  `registration.closed` covers the other end of the story. The button stays
+  where it was — the page would read oddly with a hole in it — but it is greyed,
+  carries no link at all, and states in its own label that registration is over.
+  It is a <p> rather than a disabled <button>: there is nothing left to press,
+  and a disabled control would still take a tab stop for no reason.
+
   Parameters:
     size  — "lg" for the closing banner, anything else for the hero
     class — extra classes on the element
@@ -18,13 +24,20 @@
 
 {{- $padding := cond (eq $size "lg") "px-12 py-6 text-xl" "px-10 py-5 text-lg" }}
 
-{{- with $r.url }}
-  <a href="{{ . }}" target="_blank" rel="noopener"
-     class="btn btn-cta cta-pulse {{ $padding }} {{ $extra }}">
-    {{ $r.label }}
-  </a>
-{{- else }}
-  <p class="btn {{ $padding }} {{ $extra }} border border-dashed border-white/60 text-white">
-    Inscriptions à venir
+{{- if $r.closed }}
+  <p class="btn btn-closed {{ $padding }} {{ $extra }}"
+     title="{{ $r.closedTitle }}">
+    {{ default "Inscriptions terminées" $r.closedLabel }}
   </p>
+{{- else }}
+  {{- with $r.url }}
+    <a href="{{ . }}" target="_blank" rel="noopener"
+       class="btn btn-cta cta-pulse {{ $padding }} {{ $extra }}">
+      {{ $r.label }}
+    </a>
+  {{- else }}
+    <p class="btn {{ $padding }} {{ $extra }} border border-dashed border-white/60 text-white">
+      Inscriptions à venir
+    </p>
+  {{- end }}
 {{- end }}

@@ -30,9 +30,11 @@
    * wherever the visitor is rather than counting down to 10h local time.
    *
    * Once elapsed: the units are zeroed, and if `data-countdown-elapsed` points
-   * at an element, the countdown is hidden and that element takes its place —
-   * which is how the site says "the location has been emailed" without ever
-   * putting the location itself in the page.
+   * at an element, the countdown is hidden and that element takes its place.
+   * That is how the "Lieu" card used to swap a countdown for "the location has
+   * been emailed" without ever carrying the location; nothing uses it since the
+   * reveal, and it is kept for the next edition, which will have a secret of its
+   * own to keep.
    * ---------------------------------------------------------------------- */
   var countdowns = [];
 

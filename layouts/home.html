@@ -20,6 +20,11 @@
 
   {{ partial "sections/event.html" . }}
 
+  {{- /* The route, on the same beige as the section above it: the map and the
+         GPX are the reveal of 24 September, and they read as the end of
+         "L'événement" rather than as a section of their own. */}}
+  {{ partial "sections/route.html" . }}
+
   {{ partial "sections/prose.html" (dict
       "page" (site.GetPage "/sections/story")
       "id" "story"

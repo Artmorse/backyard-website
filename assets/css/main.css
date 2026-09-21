@@ -264,6 +264,21 @@
     background-color: rgb(255 255 255 / 0.3);
   }
 
+  /* The call to action once the form has closed: the same pill, in the neutral
+     grey, inert. It holds its ground over the hero photograph as well as over
+     the meadow green of the closing banner (white on it, 4.8:1), and it does
+     not grow under the pointer — there is nothing to press. */
+  .btn-closed {
+    background-color: var(--color-muted);
+    color: var(--color-white);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+    cursor: not-allowed;
+  }
+
+  .btn-closed:hover {
+    transform: none;
+  }
+
   /* --- Hero --------------------------------------------------------------
      The wordmark and its two lines sit on the illustration itself. The scrim
      behind them takes it down a quarter of a stop; this is what keeps them
@@ -362,6 +377,26 @@
   .faq-item > .faq-answer {
     margin-top: 1rem;
     color: var(--color-body);
+  }
+
+  /* An answer of a single paragraph arrives as bare text; one of several arrives
+     wrapped in <p>, and Tailwind's base has taken their margins away. */
+  .faq-item > .faq-answer p + p {
+    margin-top: 1rem;
+  }
+
+  /* --- Links inside the data-driven copy ---------------------------------
+     The answers and the practical notes are Markdown, and the route reveal is
+     what first puts links in them (the meeting point, the toilets, the bar).
+     Tailwind's base strips the underline and the colour from every anchor, so
+     without this they would read as ordinary text. Forest green: 9.25:1 on the
+     white of the cards, 8.20:1 on the beige of the answers. */
+  .faq-item > .faq-answer a,
+  .card p a {
+    color: var(--color-forest);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
 }
 
