@@ -6,13 +6,21 @@ Le site présente le concept, le parcours, les infos pratiques et une FAQ, avec 
 
 ## Structure du projet
 
-| Fichier | Rôle |
+| Fichier / dossier | Rôle |
 | --- | --- |
 | `index.html` | Le site complet (une seule page, HTML + [Tailwind CSS](https://tailwindcss.com) via CDN, police *Playfair Display*). |
-| `banner.png`, `logo.png`, `icon.png` | Visuels du site. |
+| `assets/img/` | Visuels du site (`banner.png`, `logo.png`, `icon.png`). |
+| `assets/gpx/` | Traces GPX du parcours. |
+| `assets/docs/` | Documents à télécharger (PDF : règlement, décharge…). |
 | `CNAME` | Domaine personnalisé GitHub Pages : `loopandbloom.backyard.lemomorse.tech`. |
 | `create-form.gs` | Script Google Apps Script qui génère le formulaire d'inscription (voir ci-dessous). |
 | `DESIGN_PROMPT.md` | Notes de design. |
+
+Les fichiers déposés dans `assets/` sont servis tels quels par GitHub Pages : un GPX
+copié dans `assets/gpx/parcours.gpx` est accessible à
+`https://loopandbloom.backyard.lemomorse.tech/assets/gpx/parcours.gpx`, et peut être
+lié depuis `index.html` avec `href="assets/gpx/parcours.gpx"` (ajouter `download`
+pour forcer le téléchargement).
 
 ## Hébergement
 
