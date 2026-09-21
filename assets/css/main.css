@@ -264,21 +264,6 @@
     background-color: rgb(255 255 255 / 0.3);
   }
 
-  /* The call to action once the form has closed: the same pill, in the neutral
-     grey, inert. It holds its ground over the hero photograph as well as over
-     the meadow green of the closing banner (white on it, 4.8:1), and it does
-     not grow under the pointer — there is nothing to press. */
-  .btn-closed {
-    background-color: var(--color-muted);
-    color: var(--color-white);
-    box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
-    cursor: not-allowed;
-  }
-
-  .btn-closed:hover {
-    transform: none;
-  }
-
   /* --- Hero --------------------------------------------------------------
      The wordmark and its two lines sit on the illustration itself. The scrim
      behind them takes it down a quarter of a stop; this is what keeps them

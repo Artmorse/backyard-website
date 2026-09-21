@@ -39,7 +39,7 @@ templates only arrange it.
 | --- | --- |
 | `[params.event]` | date, schedule, lap distance, place and meeting point, where the evening carries on |
 | `[params.route]` | the komoot embed URL and the GPX file behind the "Le parcours" section |
-| `[params.registration]` | Google Form URL, button label, price, note, and whether registration has closed |
+| `[params.registration]` | Google Form URL, button label, price, note |
 | `[params.contact]` | email address, Instagram link and handle |
 | `[params.analytics]` | Umami switch and website ID |
 | `[params.images]` | which file in `assets/img/` serves as banner, logo and favicon |
@@ -47,11 +47,6 @@ templates only arrange it.
 The countdown target carries its UTC offset
 (`startsAt = '2026-09-26T10:00:00+02:00'`), so every visitor sees the same
 figures wherever they are rather than counting down to 10h local time.
-
-`closed = true` in `[params.registration]` greys the call to action out, takes
-its link away and lets it say that registration is over — the counterpart of an
-empty `url`, which reads "Inscriptions à venir" for the stretch before the form
-exists. The URL itself stays on file: it is where the answers live.
 
 `[params.route]` holds the one embed on the site that reaches a third party. Its
 URL carries a komoot share token — the tour is unlisted, so the token is what
