@@ -39,6 +39,9 @@
     - question: "Quel est le tarif ?"
       answer: "Une participation de 10€ est demandée pour couvrir les frais de ravitaillement et de la soirée. Cet événement est organisé entre amis, par passion !"
 
+    - question: "Jusqu'à quand peut-on s'inscrire ?"
+      answer: "Les inscriptions restent ouvertes jusqu'à l'annonce du lieu, le jeudi 24 septembre à 8h. Passé ce moment, il ne sera plus possible de rejoindre l'aventure : mieux vaut ne pas trop attendre !"
+
     - question: "Y aura-t-il des t-shirts ?"
       answer: "Pas pour cette première édition. On garde ça pour une prochaine fois si l'aventure continue !"
 
