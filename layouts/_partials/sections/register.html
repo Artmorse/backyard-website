@@ -1,12 +1,27 @@
-{{- /* The closing call to action. */ -}}
+{{- /*
+  The closing call to action.
+
+  It has the two moods of the button it wraps. While the registrations are open
+  it invites; once `registration.closed` is set the button below is greyed out,
+  so the words around it stop asking for a sign-up and thank instead — the small
+  print too, which otherwise would still be quoting a price and a form.
+*/ -}}
+{{- $r := site.Params.registration }}
+{{- $note := $r.note }}
+{{- if $r.closed }}{{ $note = $r.closedNote }}{{ end }}
 <section id="register" class="reveal bg-meadow px-4 py-20">
   <div class="mx-auto max-w-3xl text-center text-white">
-    <h2 class="mb-6 text-4xl font-bold md:text-5xl">Prêt pour l'aventure ?</h2>
-    <p class="mb-8 text-xl">Rejoignez-nous pour une journée inoubliable au bord du canal.</p>
+    {{- if $r.closed }}
+      <h2 class="mb-6 text-4xl font-bold md:text-5xl">Les inscriptions sont terminées</h2>
+      <p class="mb-8 text-xl">Merci à toutes celles et ceux qui seront au départ : on se retrouve au bord du canal. Et si vous nous avez manqués de peu, rendez-vous à la prochaine édition !</p>
+    {{- else }}
+      <h2 class="mb-6 text-4xl font-bold md:text-5xl">Prêt pour l'aventure ?</h2>
+      <p class="mb-8 text-xl">Rejoignez-nous pour une journée inoubliable au bord du canal.</p>
+    {{- end }}
 
     {{ partial "cta.html" (dict "size" "lg") }}
 
-    {{- with site.Params.registration.note }}
+    {{- with $note }}
       <p class="mt-6 text-sm opacity-90">{{ . }}</p>
     {{- end }}
   </div>

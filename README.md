@@ -39,7 +39,7 @@ templates only arrange it.
 | --- | --- |
 | `[params.event]` | date, schedule, lap distance, place and meeting point, where the evening carries on |
 | `[params.route]` | the komoot embed URL and the GPX file behind the "Le parcours" section |
-| `[params.registration]` | Google Form URL, button label, price, note |
+| `[params.registration]` | Google Form URL, button labels, price, notes, and the switch that closes the registrations |
 | `[params.contact]` | email address, Instagram link and handle |
 | `[params.analytics]` | Umami switch and website ID |
 | `[params.images]` | which file in `assets/img/` serves as banner, logo and favicon |
@@ -52,6 +52,13 @@ figures wherever they are rather than counting down to 10h local time.
 URL carries a komoot share token — the tour is unlisted, so the token is what
 makes the map readable at all. The frame is loaded lazily, so a visitor who
 never scrolls to it never calls komoot.
+
+`registration.closed` ends the registrations. Set to `true`, both buttons become
+a greyed-out "Inscriptions closes" that is no longer a link, and the closing
+section thanks the runners instead of inviting them. It is thrown by hand
+because the site is only rebuilt on a push, so a template comparing
+`closedAt` — the first start — against the build date would never fire on the
+day. Setting it back to `false` re-opens everything.
 
 ### Section text — `content/sections/*.md`
 

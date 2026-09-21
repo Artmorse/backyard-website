@@ -4,9 +4,17 @@
   The page has exactly one call to action and it appears twice — once over the
   hero, once at the foot of the page — so it is written here once.
 
-  If `registration.url` is empty in hugo.toml the button becomes a discreet
-  note: no one ever meets a dead link, and the page reads coherently in the
-  stretch before the form exists.
+  Three states, written in the order they happen. If `registration.url` is empty
+  in hugo.toml the button becomes a discreet note: no one ever meets a dead link,
+  and the page reads coherently in the stretch before the form exists. Once
+  `registration.closed` is set the button is still in place but out of service:
+  greyed out, and a paragraph rather than an anchor, so a form that no longer
+  accepts anyone is unreachable instead of merely discouraging. Anything else is
+  the live call to action.
+
+  The disabled state keeps the geometry of the live one — same pill, same padding
+  — because it stands where the button stood: the page should not reflow on the
+  day the registrations close.
 
   Parameters:
     size  — "lg" for the closing banner, anything else for the hero
@@ -18,13 +26,17 @@
 
 {{- $padding := cond (eq $size "lg") "px-12 py-6 text-xl" "px-10 py-5 text-lg" }}
 
-{{- with $r.url }}
-  <a href="{{ . }}" target="_blank" rel="noopener"
-     class="btn btn-cta cta-pulse {{ $padding }} {{ $extra }}">
-    {{ $r.label }}
-  </a>
-{{- else }}
+{{- if not $r.url }}
   <p class="btn {{ $padding }} {{ $extra }} border border-dashed border-white/60 text-white">
     Inscriptions à venir
   </p>
+{{- else if $r.closed }}
+  <p class="btn btn-closed {{ $padding }} {{ $extra }}">
+    {{ $r.closedLabel }}
+  </p>
+{{- else }}
+  <a href="{{ $r.url }}" target="_blank" rel="noopener"
+     class="btn btn-cta cta-pulse {{ $padding }} {{ $extra }}">
+    {{ $r.label }}
+  </a>
 {{- end }}
