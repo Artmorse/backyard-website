@@ -1,42 +1,64 @@
 {{- /*
-  The registration button.
+  A pill button.
 
-  The page has exactly one call to action and it appears twice — once over the
-  hero, once at the foot of the page — so it is written here once.
+  The page used to have exactly one call to action — the registration form — and
+  this partial knew it by heart. There are several now (register, join the
+  mailing list, browse the archive, open the map), so the destination is passed
+  in rather than read from the configuration.
 
-  Three states, written in the order they happen. If `registration.url` is empty
-  in hugo.toml the button becomes a discreet note: no one ever meets a dead link,
-  and the page reads coherently in the stretch before the form exists. Once
-  `registration.closed` is set the button is still in place but out of service:
-  greyed out, and a paragraph rather than an anchor, so a form that no longer
-  accepts anyone is unreachable instead of merely discouraging. Anything else is
-  the live call to action.
+  Three states, written in the order they happen. An empty `href` renders a dashed
+  note instead of a link: no one ever meets a dead button, and a page reads
+  coherently in the stretch before its form exists. `closed` is the other end of
+  that stretch — the button is still in place but out of service, greyed out and a
+  paragraph rather than an anchor, so a form that no longer accepts anyone is
+  unreachable instead of merely discouraging. Anything else is the live button.
 
-  The disabled state keeps the geometry of the live one — same pill, same padding
-  — because it stands where the button stood: the page should not reflow on the
-  day the registrations close.
+  The closed state keeps the geometry of the live one — same pill, same padding —
+  because it stands where the button stood: the page should not reflow on the day
+  the registrations close.
+
+  `tone` says which of the two backgrounds the dashed note is sitting on — a
+  parameter rather than something passed through `class`, because two competing
+  colour utilities on the same element are settled by the order Tailwind happens
+  to emit them in, not by the order they are written here.
 
   Parameters:
-    size  — "lg" for the closing banner, anything else for the hero
-    class — extra classes on the element
+    href       — where it goes; empty renders `fallback` instead
+    text       — the label (required)
+    fallback   — what the dashed note says when there is no href
+    closed     — true to render the button out of service rather than as a link
+    closedText — what it says then
+    tone       — "light" for that note on a coloured band, "dark" on a white card
+    style      — "cta" (yellow, the one that matters) or "ghost" (translucent)
+    size       — "lg" for a closing banner, anything else for a hero
+    pulse      — the halo that keeps the one button that matters catching the eye
+    blank      — open in a new tab
+    class      — extra classes on the element
 */ -}}
-{{- $r := site.Params.registration }}
+{{- $href := default "" .href }}
+{{- $text := .text }}
+{{- $fallback := default "Bientôt" .fallback }}
+{{- $closedText := default "Inscriptions terminées" .closedText }}
+{{- $tone := default "light" .tone }}
+{{- $style := default "cta" .style }}
 {{- $size := default "md" .size }}
 {{- $extra := default "" .class }}
 
 {{- $padding := cond (eq $size "lg") "px-12 py-6 text-xl" "px-10 py-5 text-lg" }}
+{{- $muted := cond (eq $tone "dark") "border-forest/40 text-muted" "border-white/60 text-white" }}
 
-{{- if not $r.url }}
-  <p class="btn {{ $padding }} {{ $extra }} border border-dashed border-white/60 text-white">
-    Inscriptions à venir
+{{- if not $href }}
+  <p class="btn {{ $padding }} {{ $extra }} border border-dashed {{ $muted }}">
+    {{ $fallback }}
   </p>
-{{- else if $r.closed }}
+{{- else if .closed }}
   <p class="btn btn-closed {{ $padding }} {{ $extra }}">
-    {{ $r.closedLabel }}
+    {{ $closedText }}
   </p>
 {{- else }}
-  <a href="{{ $r.url }}" target="_blank" rel="noopener"
-     class="btn btn-cta cta-pulse {{ $padding }} {{ $extra }}">
-    {{ $r.label }}
+  <a href="{{ $href }}"
+     {{ if .blank }}target="_blank" rel="noopener"{{ end }}
+     class="btn btn-{{ $style }}{{ if .pulse }} cta-pulse{{ end }} {{ $padding }} {{ $extra }}">
+    {{ $text }}
   </a>
 {{- end }}

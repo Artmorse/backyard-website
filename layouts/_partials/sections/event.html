@@ -11,10 +11,11 @@
   jeudi 24 septembre à 8h — so the card simply states it and hands the visitor on
   to the map in the section below.
 
-  The rules come from data/rules.yaml: the grid reflows, so adding a fifth is a
-  one-line change with no template to touch.
+  The rules come from rules.yaml in the edition's own bundle: the grid reflows,
+  so adding a fifth is a one-line change with no template to touch.
 */ -}}
-{{- $e := site.Params.event }}
+{{- $e := .Params.event }}
+{{- $rules := partial "func/data.html" (dict "page" . "name" "rules.yaml") }}
 <section id="event" class="reveal bg-beige px-4 py-20">
   <div class="mx-auto max-w-6xl">
     {{ partial "section-heading.html" (dict "text" "L'événement") }}
@@ -51,7 +52,7 @@
       </div>
     </div>
 
-    {{- with hugo.Data.rules }}
+    {{- with $rules }}
       <div class="card p-10">
         <h3 class="mb-6 text-center text-3xl font-bold text-forest">Les règles du jeu</h3>
         <ul class="grid gap-6 text-body md:grid-cols-2">

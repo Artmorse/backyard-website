@@ -1,0 +1,24 @@
+{{- /*
+  Returns the editions of the race, split in two:
+
+    upcoming — announced but not run yet, soonest first
+    past     — run and written up, most recent first
+
+  Which side an edition falls on is the `archived` flag in its front matter, not
+  its date. The archive entry carries the number of runners who actually turned
+  up, so an edition only crosses over once somebody has that figure — and the
+  site never flips itself from "prochaine course" to "ancienne course" halfway
+  through the race day.
+
+  Both lists are always returned, so a caller can say `with .upcoming` without
+  having to check whether the section exists at all.
+*/ -}}
+{{- $all := slice }}
+{{- with site.GetPage "/editions" }}
+  {{- $all = .RegularPages }}
+{{- end }}
+
+{{- return (dict
+    "upcoming" (sort (where $all "Params.archived" "!=" true) "Date")
+    "past" (sort (where $all "Params.archived" true) "Date" "desc")
+) }}

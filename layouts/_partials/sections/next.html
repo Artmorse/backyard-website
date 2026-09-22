@@ -1,0 +1,70 @@
+{{- /*
+  The landing page's answer to "Prochaine course" — the first menu entry.
+
+  Two states, and the site picks between them on its own: if an edition under
+  content/editions/ is not yet `archived`, this is where it is announced; if none
+  is, the section says so plainly rather than leaving a visitor to work it out
+  from an empty page.
+
+  Announcing the next edition takes nothing but dropping its bundle into
+  content/editions/ — see the note at the top of content/editions/_index.md.
+
+  When there is one, home.html follows this band with its countdown, which is the
+  same deep green: the two read as one announcement rather than as two sections.
+*/ -}}
+{{- $upcoming := (partial "func/editions.html" .).upcoming }}
+<section id="prochaine" class="reveal bg-forest px-4 py-20 text-white">
+  <div class="mx-auto max-w-3xl text-center">
+    <h2 class="mb-8 text-3xl font-bold md:text-4xl">Prochaine course</h2>
+
+    {{- if $upcoming }}
+      {{- with index $upcoming 0 }}
+      {{- $e := .Params.event }}
+      <p class="mb-3 font-display text-4xl font-bold md:text-5xl">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ $e.dateLong }}</time>
+      </p>
+      <p class="mb-8 text-xl opacity-90">
+        {{ $e.area }}{{ with $e.areaNote }} • {{ . }}{{ end }}
+      </p>
+
+      <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+        {{ partial "cta.html" (dict
+            "href" .RelPermalink
+            "text" "Tout savoir sur cette édition"
+        ) }}
+        {{- with .Params.registration }}
+          {{ partial "cta.html" (dict
+              "href" .url
+              "text" .label
+              "fallback" "Inscriptions à venir"
+              "style" "ghost"
+              "blank" true
+          ) }}
+        {{- end }}
+      </div>
+      {{- end }}
+    {{- else }}
+      <p class="mb-3 font-display text-4xl font-bold md:text-5xl">
+        Pas de date pour le moment
+      </p>
+      <p class="mb-8 text-xl opacity-90">
+        La prochaine édition n'est pas encore programmée. Elle le sera : on vous
+        préviendra dès que la date est posée.
+      </p>
+
+      <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+        {{ partial "cta.html" (dict
+            "href" "#suivre"
+            "text" "Être prévenu"
+        ) }}
+        {{- with site.GetPage "/editions" }}
+          {{ partial "cta.html" (dict
+              "href" .RelPermalink
+              "text" "Voir les anciennes courses"
+              "style" "ghost"
+          ) }}
+        {{- end }}
+      </div>
+    {{- end }}
+  </div>
+</section>

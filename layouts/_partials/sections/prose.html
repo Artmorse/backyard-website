@@ -1,14 +1,15 @@
 {{- /*
-  A passage of prose, rendered from a file in content/sections/.
+  A passage of prose, rendered from a Markdown file.
 
-  Both of the page's written sections — the concept and the story — go through
-  here: same measure, same rhythm, only the alignment and the section's own
-  classes differ. The closing line comes from the `closer` field in the file's
-  front matter rather than from the body, so it can be set apart without the
-  Markdown having to know how it will be styled.
+  Every written section goes through here — the concept and the story of an
+  edition, out of the two .md files in its bundle, and the concept on the home
+  page, out of content/_index.md itself: same measure, same rhythm, only the
+  alignment and the section's own classes differ. The closing line comes from the
+  `closer` field in the file's front matter rather than from the body, so it can
+  be set apart without the Markdown having to know how it will be styled.
 
   Parameters:
-    page    — the content page (required)
+    page    — the page, or the page resource, carrying the prose (required)
     id      — the anchor, when something links to this section
     class   — the section's classes (background, rounding, padding)
     align   — "center" or "left" (default)

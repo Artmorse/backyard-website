@@ -1,0 +1,53 @@
+{{- /*
+  The site menu — two entries, from `[menus.main]` in hugo.toml.
+
+  The bar is fixed to the top of the screen, and on a page that opens on the
+  full-screen banner it is held just above it: the illustration is what the
+  visitor lands on, whole, and the bar drops in only once the banner has gone by
+  — then slides back out when it comes into sight again. `.site-nav` and
+  `.site-nav-hold` in main.css carry that, the observer in main.js watches the
+  banner for the cue, and without a script the bar is simply there from the
+  start.
+
+  The bar is the same deep green as the footer, at nine tenths opacity: legible
+  over the bright illustration it drops onto, and over the white and beige of the
+  sections further down.
+
+  The current entry is marked both ways — `aria-current` for a screen reader,
+  the yellow pill for everyone else. An edition's own page counts as being under
+  "Anciennes courses", which is what `HasMenuCurrent` answers.
+
+  Parameters:
+    page — the page being rendered (required)
+    hold — true on a page that opens on the banner
+*/ -}}
+{{- $page := .page }}
+<header class="site-nav{{ if .hold }} site-nav-hold{{ end }} bg-forest/90 text-white backdrop-blur-sm">
+  <nav class="mx-auto flex h-full max-w-6xl items-center justify-between gap-2 px-3 sm:gap-3 sm:px-4"
+       aria-label="Menu principal">
+    <a href="{{ site.Home.RelPermalink }}"
+       class="flex shrink-0 items-center gap-3 transition-opacity hover:opacity-80">
+      {{ partial "logo.html" (dict
+          "width" 40
+          "alt" ""
+          "class" "h-10 w-10 rounded-full"
+          "loading" "eager"
+      ) }}
+      {{- /* The wordmark is the one thing the bar can do without: on a narrow
+             screen the two entries need the room more than the logo needs a
+             label beside it. */}}
+      <span class="hidden font-display text-lg font-bold sm:inline">{{ site.Title }}</span>
+    </a>
+
+    <ul class="flex items-center gap-1 text-xs font-semibold whitespace-nowrap sm:text-sm">
+      {{- range site.Menus.main }}
+        {{- $current := or ($page.IsMenuCurrent "main" .) ($page.HasMenuCurrent "main" .) }}
+        <li>
+          <a href="{{ .URL }}"
+             class="nav-link{{ if $current }} is-current{{ end }}"
+             {{ if $current }}aria-current="page"{{ end }}>{{ .Name }}</a>
+        </li>
+      {{- end }}
+    </ul>
+  </nav>
+</header>

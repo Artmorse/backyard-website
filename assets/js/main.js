@@ -1,13 +1,15 @@
 /*
- * The four things the page needs a script for:
+ * The five things the page needs a script for:
  *
  *   1. the countdowns,
  *   2. the daisy that replaces the mouse pointer,
- *   3. revealing each section as it comes into view,
- *   4. joining the two halves of the contact address.
+ *   3. dropping the menu bar in once the banner has moved,
+ *   4. revealing each section as it comes into view,
+ *   5. joining the two halves of the contact address.
  *
  * No date, no address and no selector-worthy copy is written here: all of it
- * arrives on data attributes, rendered from hugo.toml. Everything below is a
+ * arrives on data attributes — the countdown target from the edition's own front
+ * matter, the address from hugo.toml. Everything below is a
  * no-op when its markup is absent, so a section can be removed from the page
  * without touching this file.
  */
@@ -148,7 +150,38 @@
   }
 
   /* -------------------------------------------------------------------------
-   * 3. Revealing the sections
+   * 3. The menu bar, on a page that opens on the banner
+   *
+   * Markup:
+   *   <section data-nav-cue>                  the full-screen banner
+   *   <header class="site-nav site-nav-hold">
+   *
+   * The illustration is what the visitor lands on, whole: CSS holds the bar just
+   * above the screen, and it drops in once the banner has gone by entirely, then
+   * slides back out as soon as any of it is in sight again. A page that carries
+   * its bar from the start has neither the cue nor `.site-nav-hold`, and nothing
+   * here applies to it.
+   *
+   * Without an observer the bar is pinned once and stays: never hiding it is the
+   * safe way to fail.
+   * ---------------------------------------------------------------------- */
+  var navBar = document.querySelector('.site-nav-hold');
+  var navCue = document.querySelector('[data-nav-cue]');
+
+  if (navBar) {
+    if (!navCue || !('IntersectionObserver' in window)) {
+      navBar.classList.add('is-pinned');
+    } else {
+      new IntersectionObserver(function (entries) {
+        // Several changes can arrive in one call; the last one is the state now.
+        var now = entries[entries.length - 1];
+        navBar.classList.toggle('is-pinned', !now.isIntersecting);
+      }).observe(navCue);
+    }
+  }
+
+  /* -------------------------------------------------------------------------
+   * 4. Revealing the sections
    *
    * The sections are visible in the HTML; `.js` on <html>, set in the head
    * before the first paint, is what hides the ones marked `.reveal` so they
@@ -193,7 +226,7 @@
   }
 
   /* -------------------------------------------------------------------------
-   * 4. The contact address
+   * 5. The contact address
    *
    * Joined here from two halves so the page source never carries a complete
    * address for the crawlers that harvest them. The link is inert until this

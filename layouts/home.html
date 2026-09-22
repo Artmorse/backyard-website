@@ -1,44 +1,57 @@
 {{- /*
-  The one page.
+  The landing page.
 
-  This template is the running order and nothing else: every section is a
-  partial, and every word inside them comes from hugo.toml, from data/ or from
-  content/sections/. Reordering the page means reordering this list.
+  It used to be the whole site: one page carrying a single edition, its loop, its
+  FAQ. Each edition keeps its own page now, under /editions/, and what is left
+  here is what does not belong to any of them — what the race is, whether there is
+  a next one, and how to hear about it.
+
+  This template is the running order and nothing else: every section is a partial,
+  and every word inside them comes from hugo.toml or from content/_index.md.
+  Reordering the page means reordering this list.
 */ -}}
 {{ define "main" }}
-  {{ partial "sections/hero.html" . }}
-  {{ partial "sections/countdown.html" . }}
+  {{- $upcoming := (partial "func/editions.html" .).upcoming }}
+
+  {{- /* The small line under the tagline states where the race is, and whether
+         there is a date. Until there is one, saying so here is the honest thing:
+         a visitor should not have to scroll to find out. */}}
+  {{- $when := "Prochaine édition à venir" }}
+  {{- with $upcoming }}
+    {{- $when = (index . 0).Params.event.dateShort }}
+  {{- end }}
+
+  {{ partial "sections/hero.html" (dict
+      "title" site.Title
+      "tagline" site.Params.tagline
+      "meta" (printf "%s • %s" $when site.Params.region)
+      "actions" (slice
+          (dict "href" "#prochaine" "text" "La prochaine course")
+          (dict "href" (site.GetPage "/editions").RelPermalink "text" "Les anciennes courses" "style" "ghost")
+      )
+  ) }}
+
+  {{ partial "sections/next.html" . }}
+
+  {{- /* The countdown only when there is something to count down to. Same deep
+         green as the band above it, so the two read as one announcement. */}}
+  {{- with $upcoming }}
+    {{ partial "sections/countdown.html" (index . 0) }}
+  {{- end }}
 
   {{- /* The concept, centred, with the rounded shoulder that lifts it over the
-         deep green of the countdown. */}}
+         deep green above. The prose is the body of content/_index.md. */}}
   {{ partial "sections/prose.html" (dict
-      "page" (site.GetPage "/sections/concept")
+      "page" .
       "id" "concept"
       "class" "section-rounded relative bg-white px-4 py-20"
       "align" "center"
   ) }}
 
-  {{ partial "sections/event.html" . }}
-
-  {{- /* From here to the registration banner the page alternates strictly
-         between beige and white, so no two sections ever touch on the same
-         colour: event beige, route white, story beige, practical white, faq
-         beige, register meadow.
-
-         The route used to share the beige of "L'événement" and read as its
-         ending; it is a section of its own now, and the alternation is what
-         separates them. Inserting or moving a section here means re-checking
-         the run of colours — and the panels inside it, which invert with the
-         section: white cards on beige, beige cards on white. */}}
-  {{ partial "sections/route.html" . }}
-
-  {{ partial "sections/prose.html" (dict
-      "page" (site.GetPage "/sections/story")
-      "id" "story"
-      "class" "bg-beige px-4 py-20"
-  ) }}
-
-  {{ partial "sections/practical.html" . }}
-  {{ partial "sections/faq.html" . }}
-  {{ partial "sections/register.html" . }}
+  {{- /* No two sections touch on the same colour here either: concept white,
+         the archive beige, the mailing list meadow. The long run of alternating
+         sections the race itself is told in moved to the edition page with it —
+         see the note in editions/single.html. */}}
+  {{ partial "sections/editions.html" (dict "limit" 3) }}
+  {{ partial "sections/follow.html" . }}
 {{ end }}

@@ -1,0 +1,42 @@
+{{- /*
+  The landing page's teaser for the archive: the most recent editions, and the way
+  through to all of them.
+
+  Three at most — this is a taste, not the list; /editions/ is the list, and the
+  cards are the same component so the two cannot drift apart.
+
+  The whole section disappears while no edition has been run, which is the state
+  this site was in until the first one.
+
+  Parameters:
+    limit — how many editions to show (default 3)
+*/ -}}
+{{- $limit := default 3 .limit }}
+{{- $past := (partial "func/editions.html" .).past }}
+{{- with $past }}
+  <section id="editions" class="reveal bg-beige px-4 py-20">
+    <div class="mx-auto max-w-4xl">
+      {{ partial "section-heading.html" (dict "text" "Les éditions passées" "class" "mb-4") }}
+      <p class="mb-12 text-center text-lg text-body">
+        Chaque édition garde sa page, telle qu'elle était le jour de la course :
+        la carte et la trace GPX, les infos pratiques et la FAQ.
+      </p>
+
+      <ol class="space-y-4">
+        {{- range first $limit . }}
+          {{ partial "edition-card.html" (dict "page" .) }}
+        {{- end }}
+      </ol>
+
+      {{- if gt (len .) $limit }}
+        {{- with site.GetPage "/editions" }}
+          <p class="mt-10 text-center">
+            <a href="{{ .RelPermalink }}" class="btn btn-cta px-10 py-5 text-lg">
+              Toutes les anciennes courses
+            </a>
+          </p>
+        {{- end }}
+      {{- end }}
+    </div>
+  </section>
+{{- end }}

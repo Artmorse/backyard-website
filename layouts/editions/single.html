@@ -1,0 +1,92 @@
+{{- /*
+  One edition of the race.
+
+  This is the page the site used to be, and it is deliberately the same page: an
+  edition that has been run keeps its hero, its loop, its map, its GPX, its
+  practical notes and its FAQ exactly as a runner read them on the day. Only the
+  two slots that would lie afterwards are swapped — the countdown becomes the
+  recap, and the registration banner becomes the invitation to hear about the next
+  one.
+
+  Everything it shows comes from the edition's own bundle: the front matter of
+  index.md, the two prose files beside it, and its three YAML files. Nothing on
+  this page reads a site-wide setting about the race, which is what lets a second
+  edition arrive with a different date and a different loop without touching this
+  one.
+
+  This template is the running order and nothing else. Reordering the page means
+  reordering this list.
+*/ -}}
+{{ define "main" }}
+  {{- $archived := .Params.archived }}
+  {{- $e := .Params.event }}
+
+  {{- $actions := slice }}
+  {{- if $archived }}
+    {{- $actions = $actions | append (dict "href" "#parcours" "text" "Voir le parcours") }}
+    {{- $actions = $actions | append (dict "href" "#faq" "text" "La FAQ de la journée" "style" "ghost") }}
+  {{- else }}
+    {{- with .Params.registration }}
+      {{- $actions = $actions | append (dict
+          "href" .url
+          "text" .label
+          "fallback" "Inscriptions à venir"
+          "closed" .closed
+          "closedText" .closedLabel
+          "pulse" true
+          "blank" true
+      ) }}
+    {{- end }}
+    {{- $actions = $actions | append (dict "href" "#event" "text" "Découvrir l'événement" "style" "ghost") }}
+  {{- end }}
+
+  {{- /* The wordmark stays the headline — an archived page is the page as it was,
+         and which edition it is belongs in the pill above it and in the line
+         below, not in ninety-six points of Playfair. */}}
+  {{ partial "sections/hero.html" (dict
+      "title" site.Title
+      "badge" (cond $archived "Édition terminée" "")
+      "tagline" site.Params.tagline
+      "meta" (printf "%s • %s • %s" .Title $e.dateShort site.Params.region)
+      "actions" $actions
+  ) }}
+
+  {{- /* The countdown while the edition is ahead, the figures of the day once it
+         is behind. Same deep green band either way. */}}
+  {{ partial (cond $archived "sections/recap.html" "sections/countdown.html") . }}
+
+  {{- /* The concept, centred, with the rounded shoulder that lifts it over the
+         deep green of the band above. */}}
+  {{ partial "sections/prose.html" (dict
+      "page" (.Resources.Get "concept.md")
+      "id" "concept"
+      "class" "section-rounded relative bg-white px-4 py-20"
+      "align" "center"
+  ) }}
+
+  {{ partial "sections/event.html" . }}
+
+  {{- /* From here to the banner at the foot the page alternates strictly between
+         beige and white, so no two sections ever touch on the same colour: event
+         beige, route white, story beige, practical white, faq beige, then meadow.
+
+         The route used to share the beige of "L'événement" and read as its
+         ending; it is a section of its own now, and the alternation is what
+         separates them. Inserting or moving a section here means re-checking the
+         run of colours — and the panels inside it, which invert with the section:
+         white cards on beige, beige cards on white. */}}
+  {{ partial "sections/route.html" . }}
+
+  {{ partial "sections/prose.html" (dict
+      "page" (.Resources.Get "story.md")
+      "id" "story"
+      "class" "bg-beige px-4 py-20"
+  ) }}
+
+  {{ partial "sections/practical.html" . }}
+  {{ partial "sections/faq.html" . }}
+
+  {{- /* Register while there is something to register for; otherwise the way to
+         hear about the next edition. */}}
+  {{ partial (cond $archived "sections/follow.html" "sections/register.html") . }}
+{{ end }}
