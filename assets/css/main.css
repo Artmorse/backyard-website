@@ -277,8 +277,12 @@
   }
 
   /* --- Cards -------------------------------------------------------------
-     The white panel the page is built from: the three facts, the rules, the
-     practical notes. */
+     The panel the page is built from: the three facts, the rules, the route,
+     the practical notes.
+
+     White by default, which is what a card on a beige section wants. A card on
+     a white section takes `bg-beige` in the template to invert it — the
+     utilities layer wins over this one, so the class is all it takes. */
   .card {
     background-color: var(--color-surface);
     border-radius: 1.5rem;
@@ -323,9 +327,14 @@
 
   /* --- FAQ ---------------------------------------------------------------
      Native <details>: the browser handles opening, keyboard operation and
-     find-in-page on its own, so there is nothing to script here. */
+     find-in-page on its own, so there is nothing to script here.
+
+     White panels: the section itself is beige, its turn in the alternation
+     home.html lays out. These were beige on white until that alternation
+     shifted; if the section ever goes back to white, this goes back to
+     `--color-background` with it. */
   .faq-item {
-    background-color: var(--color-background);
+    background-color: var(--color-surface);
     border-radius: 1rem;
     padding: 1.5rem;
   }
@@ -374,8 +383,8 @@
      The answers and the practical notes are Markdown, and the route reveal is
      what first puts links in them (the meeting point, the toilets, the bar).
      Tailwind's base strips the underline and the colour from every anchor, so
-     without this they would read as ordinary text. Forest green: 9.25:1 on the
-     white of the cards, 8.20:1 on the beige of the answers. */
+     without this they would read as ordinary text. Forest green holds either
+     way round: 9.25:1 on a white panel, 8.20:1 on a beige one. */
   .faq-item > .faq-answer a,
   .card p a {
     color: var(--color-forest);

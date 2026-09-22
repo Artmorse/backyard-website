@@ -13,17 +13,22 @@
 
   Whoever removes the frame should leave the GPX card: the file is the part a
   runner actually needs, and it is served from this domain.
+
+  White section, beige cards — the inverse of "L'événement" above it, which is
+  what separates the two now that the route is a section in its own right. Every
+  card here therefore carries `bg-beige`: `.card` is white by default, and a
+  white card on a white section has nothing but its shadow to stand on.
 */ -}}
 {{- $e := site.Params.event }}
 {{- $r := site.Params.route }}
-<section id="parcours" class="reveal bg-beige px-4 pb-20">
+<section id="parcours" class="reveal bg-white px-4 py-20">
   <div class="mx-auto max-w-6xl">
     {{ partial "section-heading.html" (dict "text" "Le parcours") }}
 
     {{- with $r.komootEmbed }}
       {{- /* The beige mat around the frame is the card's padding: the map fills
              it edge to edge, rounded with it. */}}
-      <div class="card overflow-hidden p-2">
+      <div class="card overflow-hidden bg-beige p-2">
         <iframe src="{{ . | safeURL }}"
                 title="Carte du parcours Loop &amp; Bloom sur komoot"
                 class="block h-[700px] max-h-[85dvh] w-full rounded-[1.25rem]"
@@ -37,7 +42,7 @@
     <div class="mt-8 grid gap-8 md:grid-cols-2">
       {{- /* The file */}}
       {{- with $r.gpx }}
-        <div class="card flex flex-col items-center p-8 text-center">
+        <div class="card flex flex-col items-center bg-beige p-8 text-center">
           <div class="mb-4 text-5xl text-meadow" aria-hidden="true">🗺️</div>
           <h3 class="mb-3 text-2xl font-bold text-forest">La trace GPX</h3>
           <p class="mb-6 text-body">
@@ -54,7 +59,7 @@
       {{- end }}
 
       {{- /* Where it starts */}}
-      <div class="card flex flex-col items-center p-8 text-center">
+      <div class="card flex flex-col items-center bg-beige p-8 text-center">
         <div class="mb-4 text-5xl text-canal" aria-hidden="true">📍</div>
         <h3 class="mb-3 text-2xl font-bold text-forest">Le départ</h3>
         <p class="mb-2 text-lg font-semibold text-body">{{ $e.area }}</p>
