@@ -1,9 +1,10 @@
 /**
  * Génère le Google Form « être prévenu de la prochaine édition » de Loop & Bloom.
  *
- * C'est le pendant de create-form.gs : celui-là inscrit à une course qui a une
- * date, celui-ci récolte les adresses de ceux qui veulent en connaître une.
- * Entre deux éditions, c'est le seul formulaire ouvert sur le site.
+ * C'est le pendant de create-form-20260926.gs : celui-là inscrit à une course
+ * qui a une date, celui-ci récolte les adresses de ceux qui veulent en
+ * connaître une. Entre deux éditions, c'est le seul formulaire ouvert sur le
+ * site.
  *
  * Utilisation :
  *  1. Va sur https://script.google.com → Nouveau projet
@@ -11,7 +12,10 @@
  *  3. Sélectionne la fonction "createMailingListForm" et clique sur ▶ Exécuter
  *  4. Autorise le script (première exécution uniquement)
  *  5. Le lien du formulaire s'affiche dans le journal d'exécution (Ctrl+Enter / Affichage → Journaux)
- *  6. Reporte le lien « à partager » dans hugo.toml, sous [params.mailinglist] → url
+ *  6. Ouvre le formulaire et charge assets/img/banner.png en image d'en-tête (🎨) :
+ *     Forms en déduit ses couleurs, c'est le seul habillage à faire à la main —
+ *     et ce qui donne le même thème qu'au formulaire d'inscription.
+ *  7. Reporte le lien « à partager » dans hugo.toml, sous [params.mailinglist] → url
  */
 function createMailingListForm() {
   var form = FormApp.create('Loop & Bloom — Être prévenu de la prochaine édition');
