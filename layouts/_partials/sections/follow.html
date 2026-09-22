@@ -23,9 +23,23 @@
       Deux façons de ne pas manquer la prochaine édition.
     </p>
 
-    <div class="grid gap-8 md:grid-cols-2">
+    {{- /* The two cards share their rows rather than each laying itself out:
+           emoji, heading, text, button, footnote line up across the pair even
+           though the paragraphs and the footnotes wrap onto a different number
+           of lines. `mt-auto` on the buttons could only push them to the bottom
+           of their own card, which put them one line apart — the email note
+           takes two lines where the Instagram handle takes one. The `1fr` row
+           is the paragraph: it absorbs the slack, so the buttons stay on the
+           same line as each other.
+
+           `md:gap-y-0` matters: a subgrid takes its gutters from the parent, so
+           the `gap-8` that separates the two cards would otherwise reappear
+           between every row inside them and blow the cards up by four gaps.
+           Side by side there is no row to space out, and on mobile the gap is
+           what keeps the stacked cards apart, hence the breakpoint. */}}
+    <div class="grid gap-8 md:grid-cols-2 md:gap-y-0 md:grid-rows-[auto_auto_1fr_auto_auto]">
       {{- with $c.instagram }}
-        <div class="card flex flex-col items-center p-8 text-center">
+        <div class="card grid justify-items-center p-8 text-center md:row-span-5 md:grid-rows-subgrid">
           <div class="mb-4 text-5xl" aria-hidden="true">📷</div>
           <h3 class="mb-3 text-2xl font-bold text-forest">Sur Instagram</h3>
           <p class="mb-6 text-body">
@@ -38,7 +52,6 @@
           {{ partial "cta.html" (dict
               "href" .
               "text" "Nous suivre"
-              "class" "mt-auto"
               "blank" true
           ) }}
           {{- with $c.instagramHandle }}
@@ -47,7 +60,7 @@
         </div>
       {{- end }}
 
-      <div class="card flex flex-col items-center p-8 text-center">
+      <div class="card grid justify-items-center p-8 text-center md:row-span-5 md:grid-rows-subgrid">
         <div class="mb-4 text-5xl" aria-hidden="true">📬</div>
         <h3 class="mb-3 text-2xl font-bold text-forest">Par email</h3>
         <p class="mb-6 text-body">
@@ -59,7 +72,6 @@
             "text" $m.label
             "fallback" "Bientôt disponible"
             "tone" "dark"
-            "class" "mt-auto"
             "blank" true
         ) }}
         {{- with $m.note }}
