@@ -100,7 +100,7 @@ timeZone = 'Europe/Paris'
   # ---------------------------------------------------------------------------
   [params.mailinglist]
     url = 'https://docs.google.com/forms/d/e/1FAIpQLSeZhmZuCM20gNeNyvWI_uUDlzCN_7dZrn9itOSgh_07KyyumA/viewform'
-    label = "Être prévenu de la prochaine édition"
+    label = "Être prévenu"
     note = "Un email quand la date de la prochaine édition est fixée. Pas un de plus."
 
   # ---------------------------------------------------------------------------
