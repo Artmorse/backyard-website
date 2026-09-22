@@ -153,6 +153,18 @@
    * The sections are visible in the HTML; `.js` on <html>, set in the head
    * before the first paint, is what hides the ones marked `.reveal` so they
    * can fade in. If this script never runs, nothing is ever hidden.
+   *
+   * The trigger is the element's top edge crossing a line four fifths of the
+   * way down the viewport — `threshold: 0` with the root shortened from the
+   * bottom — and not a fraction of the element's own area.
+   *
+   * It was `threshold: 0.1` before, which is a tenth of the *element*: the
+   * taller a section, the earlier it fired. "Le parcours" is the tallest on the
+   * page by half again, and a tenth of it was reached while nothing but its top
+   * padding and its heading had appeared, so its 0.6s fade was finished before
+   * the map or the two cards had come into view at all. Reading the threshold
+   * off the viewport instead means every block, whatever its height, starts to
+   * fade at the same point on screen.
    * ---------------------------------------------------------------------- */
   var toReveal = document.querySelectorAll('.reveal');
 
@@ -171,7 +183,7 @@
             observer.unobserve(entry.target);
           });
         },
-        { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+        { threshold: 0, rootMargin: '0px 0px -20% 0px' }
       );
 
       Array.prototype.forEach.call(toReveal, function (el) {
