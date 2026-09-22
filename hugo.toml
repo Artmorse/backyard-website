@@ -129,7 +129,7 @@ timeZone = 'Europe/Paris'
     closedLabel = 'Inscriptions terminées'
     price = '10€'
     note = "Places limitées • 10€ par personne • Inscription via le formulaire"
-    closedNote = "Les inscrits ont reçu le lieu exact et la trace GPX par email"
+    closedNote = "Les inscriptions sont terminées depuis le samedi 26 septembre 2026 à 10h, l'heure du premier départ"
 
   # ---------------------------------------------------------------------------
   # How to reach the organisers.
