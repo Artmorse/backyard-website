@@ -5,21 +5,16 @@
   but not the same content, and the middle one holds a live countdown. Every
   value in them comes from `params.event`.
 
-  The place is the point of the whole section: the exact location is not in this
-  file, not in the data files and not in the built HTML. It is emailed to the
-  registered runners on the reveal date; until then the card counts down, and
-  afterwards it says so. Whoever adds the reveal must resist putting it here.
+  The place was the point of the whole section for as long as it was a secret:
+  the card used to count down to the reveal, and the exact location appeared
+  nowhere in the project. That countdown has run out — the place is public since
+  jeudi 24 septembre à 8h — so the card simply states it and hands the visitor on
+  to the map in the section below.
 
   The rules come from data/rules.yaml: the grid reflows, so adding a fifth is a
   one-line change with no template to touch.
 */ -}}
 {{- $e := site.Params.event }}
-{{- $locUnits := slice
-      (dict "unit" "days" "label" "jours")
-      (dict "unit" "hours" "label" "heures")
-      (dict "unit" "minutes" "label" "min")
-      (dict "unit" "seconds" "label" "sec")
-}}
 <section id="event" class="reveal bg-beige px-4 py-20">
   <div class="mx-auto max-w-6xl">
     {{ partial "section-heading.html" (dict "text" "L'événement") }}
@@ -40,25 +35,10 @@
         <div class="mb-4 text-5xl text-canal" aria-hidden="true">📍</div>
         <h3 class="mb-3 text-2xl font-bold text-forest">Lieu</h3>
         <p class="mb-2 text-lg font-semibold text-body">{{ $e.area }}</p>
-        <p class="mb-2 text-sm text-muted">{{ $e.areaNote }}</p>
+        <p class="mb-4 text-sm text-muted">{{ $e.areaNote }}</p>
 
-        <div class="text-sm text-muted"
-             data-countdown="{{ $e.locationRevealAt }}"
-             data-countdown-elapsed="#location-revealed">
-          <p class="mb-2">Lieu exact révélé dans :</p>
-          <div class="flex justify-center gap-2 font-mono font-bold text-canal">
-            {{- range $i, $u := $locUnits }}
-              {{- if $i }}<span class="text-2xl">:</span>{{ end }}
-              <div class="flex flex-col">
-                <span class="text-2xl" data-countdown-unit="{{ $u.unit }}">00</span>
-                <span class="text-xs">{{ $u.label }}</span>
-              </div>
-            {{- end }}
-          </div>
-        </div>
-
-        <p id="location-revealed" class="mt-2 text-sm text-muted" hidden>
-          📍 Lieu exact envoyé par email aux inscrits !
+        <p class="text-sm text-body">
+          <a href="#parcours">Voir la carte et la trace GPX</a>
         </p>
       </div>
 

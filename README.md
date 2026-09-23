@@ -37,19 +37,21 @@ templates only arrange it.
 
 | Block | What it holds |
 | --- | --- |
-| `[params.event]` | date, schedule, lap distance, area, and the two countdown targets |
+| `[params.event]` | date, schedule, lap distance, place and meeting point, where the evening carries on |
+| `[params.route]` | the komoot embed URL and the GPX file behind the "Le parcours" section |
 | `[params.registration]` | Google Form URL, button label, price, note |
 | `[params.contact]` | email address, Instagram link and handle |
 | `[params.analytics]` | Umami switch and website ID |
 | `[params.images]` | which file in `assets/img/` serves as banner, logo and favicon |
 
-The two countdown targets carry their UTC offset
+The countdown target carries its UTC offset
 (`startsAt = '2026-09-26T10:00:00+02:00'`), so every visitor sees the same
 figures wherever they are rather than counting down to 10h local time.
 
-`locationRevealAt` drives the "Lieu" card: until that date it counts down, and
-afterwards it says the exact location has been emailed to the registered
-runners.
+`[params.route]` holds the one embed on the site that reaches a third party. Its
+URL carries a komoot share token — the tour is unlisted, so the token is what
+makes the map readable at all. The frame is loaded lazily, so a visitor who
+never scrolls to it never calls komoot.
 
 ### Section text — `content/sections/*.md`
 
@@ -92,9 +94,13 @@ woff2 files, split by `unicode-range` into latin and latin-ext.
 
 ### Downloads — `static/gpx/` and `static/docs/`
 
-Files dropped there are served as they are: `static/gpx/parcours.gpx` is
-reachable at `/gpx/parcours.gpx`. Add `download` to the link to force the
-download rather than opening the file.
+Files dropped there are served as they are:
+`static/gpx/loop-and-bloom-backyard-20260926.gpx` is reachable at
+`/gpx/loop-and-bloom-backyard-20260926.gpx`, and `params.route.gpx` is the path
+the "Le parcours" section links to, with `download` on the link so the browser
+saves the file rather than showing it. The name carries the date of the edition
+rather than being `parcours.gpx`: the archive should stay unambiguous once there
+is a second loop.
 
 ### Images — `assets/img/`
 
@@ -156,11 +162,17 @@ The custom domain is declared in `static/CNAME`. It must match `baseURL` in
 
 ---
 
-## Two things that must stay out of the repository
+## What must stay out of the repository
 
-**The exact location.** It is emailed to the registered runners on
-`locationRevealAt`. It belongs in neither the templates, nor the data files,
-nor the built HTML — only the wider area (`params.event.area`) is public.
+**The exact location, until it is revealed.** For the 2026 edition it was
+emailed to the registered runners on **jeudi 24 septembre à 8h**, as the site had
+announced, and until that morning it appeared in neither the templates, nor the
+data files, nor the built HTML — only the wider area was public, and the "Lieu"
+card counted down to the reveal. It is published since: `params.event` names the
+place and the meeting point, `[params.route]` carries the map and the GPX. A next
+edition with a secret to keep should put it back the way it was; the countdown
+that did the job is still in `assets/js/main.js`
+(`data-countdown-elapsed`).
 
 **The contact address in one piece.** It is written normally in
 `[params.contact]`, but the footer splits it on the `@` into two data

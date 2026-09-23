@@ -20,10 +20,22 @@
 
   {{ partial "sections/event.html" . }}
 
+  {{- /* From here to the registration banner the page alternates strictly
+         between beige and white, so no two sections ever touch on the same
+         colour: event beige, route white, story beige, practical white, faq
+         beige, register meadow.
+
+         The route used to share the beige of "L'événement" and read as its
+         ending; it is a section of its own now, and the alternation is what
+         separates them. Inserting or moving a section here means re-checking
+         the run of colours — and the panels inside it, which invert with the
+         section: white cards on beige, beige cards on white. */}}
+  {{ partial "sections/route.html" . }}
+
   {{ partial "sections/prose.html" (dict
       "page" (site.GetPage "/sections/story")
       "id" "story"
-      "class" "bg-white px-4 py-20"
+      "class" "bg-beige px-4 py-20"
   ) }}
 
   {{ partial "sections/practical.html" . }}

@@ -1,0 +1,84 @@
+{{- /*
+  The route: the map to look at, and the file to load onto a watch.
+
+  This section did not exist before the reveal. The loop was deliberately absent
+  from the project until jeudi 24 septembre à 8h — see the note on `params.event`
+  in hugo.toml — and this is where it landed once it was public. Everything it
+  shows comes from `params.route`; the only thing this file decides is the shape.
+
+  The komoot frame is the one request on the page that leaves this domain: the
+  fonts are self-hosted, the images are built here, and the map is not. It is
+  loaded lazily, so a visitor who never scrolls this far never calls komoot, and
+  it is titled — an unlabelled frame is announced as "frame" and nothing else.
+
+  Whoever removes the frame should leave the GPX card: the file is the part a
+  runner actually needs, and it is served from this domain.
+
+  White section, beige cards — the inverse of "L'événement" above it, which is
+  what separates the two now that the route is a section in its own right. Every
+  card here therefore carries `bg-beige`: `.card` is white by default, and a
+  white card on a white section has nothing but its shadow to stand on.
+
+  The three cards each carry `.reveal` as well as the section, which no other
+  section needs: this one is over 1300px tall, so revealing it in one piece
+  faded the map and the two cards while they were still below the fold. Each
+  block now comes in as it is reached.
+*/ -}}
+{{- $e := site.Params.event }}
+{{- $r := site.Params.route }}
+<section id="parcours" class="reveal bg-white px-4 py-20">
+  <div class="mx-auto max-w-6xl">
+    {{ partial "section-heading.html" (dict "text" "Le parcours") }}
+
+    {{- with $r.komootEmbed }}
+      {{- /* The beige mat around the frame is the card's padding: the map fills
+             it edge to edge, rounded with it. */}}
+      <div class="reveal card overflow-hidden bg-beige p-2">
+        <iframe src="{{ . | safeURL }}"
+                title="Carte du parcours Loop &amp; Bloom sur komoot"
+                class="block h-[700px] max-h-[85dvh] w-full rounded-[1.25rem]"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                frameborder="0" scrolling="no"
+                allow="fullscreen" allowfullscreen></iframe>
+      </div>
+    {{- end }}
+
+    <div class="mt-8 grid gap-8 md:grid-cols-2">
+      {{- /* The file */}}
+      {{- with $r.gpx }}
+        <div class="reveal card flex flex-col items-center bg-beige p-8 text-center">
+          <div class="mb-4 text-5xl text-meadow" aria-hidden="true">🗺️</div>
+          <h3 class="mb-3 text-2xl font-bold text-forest">La trace GPX</h3>
+          <p class="mb-6 text-body">
+            À charger dans votre montre ou votre application favorite avant de venir.
+          </p>
+          <a href="{{ . | relURL }}" download
+             class="btn btn-cta mt-auto px-8 py-4 text-lg">
+            Télécharger le GPX
+          </a>
+          {{- with $r.gpxNote }}
+            <p class="mt-3 text-sm text-muted">{{ . }}</p>
+          {{- end }}
+        </div>
+      {{- end }}
+
+      {{- /* Where it starts */}}
+      <div class="reveal card flex flex-col items-center bg-beige p-8 text-center">
+        <div class="mb-4 text-5xl text-canal" aria-hidden="true">📍</div>
+        <h3 class="mb-3 text-2xl font-bold text-forest">Le départ</h3>
+        <p class="mb-2 text-lg font-semibold text-body">{{ $e.area }}</p>
+        <p class="mb-6 text-body">{{ $e.areaNote }}</p>
+        {{- with $e.startMap }}
+          <a href="{{ . }}" target="_blank" rel="noopener"
+             class="btn btn-cta mt-auto px-8 py-4 text-lg">
+            Ouvrir dans Maps
+          </a>
+        {{- end }}
+        <p class="mt-3 text-sm text-muted">
+          Accueil dès {{ $e.welcomeFrom }} • Premier départ à {{ $e.firstStart }}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
