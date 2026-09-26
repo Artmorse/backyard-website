@@ -264,6 +264,29 @@
     background-color: rgb(255 255 255 / 0.3);
   }
 
+  /* The call to action once the registrations are closed: the same pill, out of
+     service. It is deliberately not a variant of `.btn-ghost` — in the hero the
+     two sit side by side, and a disabled button that looks like the live "read
+     first" one next to it would be read as a second way on.
+
+     Darkening rather than lightening is what makes one rule serve both places
+     the button appears: a translucent black fill deepens the hero photograph and
+     the meadow green of the closing banner alike, and the white label keeps well
+     over 4.5:1 on either. The hover scale of `.btn` is cancelled here, and the
+     template drops `cta-pulse`: nothing should draw the eye to, or answer, a
+     press that leads nowhere. */
+  .btn-closed {
+    background-color: rgb(0 0 0 / 0.35);
+    border: 1px solid rgb(255 255 255 / 0.35);
+    color: rgb(255 255 255 / 0.85);
+    backdrop-filter: blur(4px);
+    cursor: default;
+  }
+
+  .btn-closed:hover {
+    transform: none;
+  }
+
   /* --- Hero --------------------------------------------------------------
      The wordmark and its two lines sit on the illustration itself. The scrim
      behind them takes it down a quarter of a stop; this is what keeps them
