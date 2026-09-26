@@ -1,11 +1,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-{{- /* The home page is titled with the event name and its promise; any other
-       page (the 404) carries its own title in front of it. */}}
+{{- /* The home page is titled with the event name and its promise; every other
+       page — an edition, the archive, the 404 — carries its own title in front of
+       it. */}}
 {{- $title := "" }}
 {{- if .IsHome }}
-  {{- $title = printf "%s - %s" site.Title (printf "Course nature en %s" site.Params.event.region) }}
+  {{- $title = printf "%s - %s" site.Title (printf "Course nature en %s" site.Params.region) }}
 {{- else if eq .Kind "404" }}
   {{- /* Hugo's own title for this kind is in English. */}}
   {{- $title = printf "Page introuvable — %s" site.Title }}

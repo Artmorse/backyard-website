@@ -4,7 +4,8 @@
   This section did not exist before the reveal. The loop was deliberately absent
   from the project until jeudi 24 septembre à 8h — see the note on `params.event`
   in hugo.toml — and this is where it landed once it was public. Everything it
-  shows comes from `params.route`; the only thing this file decides is the shape.
+  shows comes from the edition's `route` block; the only thing this file decides
+  is the shape.
 
   The komoot frame is the one request on the page that leaves this domain: the
   fonts are self-hosted, the images are built here, and the map is not. It is
@@ -24,8 +25,8 @@
   faded the map and the two cards while they were still below the fold. Each
   block now comes in as it is reached.
 */ -}}
-{{- $e := site.Params.event }}
-{{- $r := site.Params.route }}
+{{- $e := .Params.event }}
+{{- $r := .Params.route }}
 <section id="parcours" class="reveal bg-white px-4 py-20">
   <div class="mx-auto max-w-6xl">
     {{ partial "section-heading.html" (dict "text" "Le parcours") }}

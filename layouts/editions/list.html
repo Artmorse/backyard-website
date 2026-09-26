@@ -1,0 +1,61 @@
+{{- /*
+  The archive — "Anciennes courses" in the menu.
+
+  A list of links and nothing more: one line per edition, its date, where it was
+  run and how many runners took the start. Each one leads to that edition's page,
+  which is still the page it was on the day — the map, the GPX, the practical
+  notes, the FAQ.
+
+  This page has no banner to hold the menu back, so the bar is there from the
+  start. It floats over the header band, on the same deep green, which is what
+  makes the two read as one block — hence the room left above the title
+  (`pt-32`).
+*/ -}}
+{{ define "main" }}
+  {{- $editions := partial "func/editions.html" . }}
+
+  <section class="bg-forest px-4 pt-32 pb-20 text-white">
+    <div class="mx-auto max-w-4xl text-center">
+      <h1 class="font-display text-5xl font-bold md:text-6xl">{{ .Title }}</h1>
+      {{- with .Content }}
+        <div class="mx-auto mt-6 max-w-2xl text-lg opacity-90">{{ . }}</div>
+      {{- end }}
+    </div>
+  </section>
+
+  {{- /* No `section-rounded` here: the shoulder is a cut-out that shows the beige
+         of the page behind it, so a beige section rounded over the green would
+         round into its own colour and show nothing. */}}
+  <section class="reveal bg-beige px-4 py-20">
+    <div class="mx-auto max-w-4xl">
+      {{- /* An edition still to come is not an "ancienne course", but someone who
+             opened this page is looking for editions and it would be odd to hide
+             the one that matters most. It is listed apart, above the archive. */}}
+      {{- with $editions.upcoming }}
+        <h2 class="mb-6 text-2xl font-bold text-forest">À venir</h2>
+        <ol class="mb-16 space-y-4">
+          {{- range . }}
+            {{ partial "edition-card.html" (dict "page" .) }}
+          {{- end }}
+        </ol>
+      {{- end }}
+
+      {{- with $editions.past }}
+        {{- if $editions.upcoming }}
+          <h2 class="mb-6 text-2xl font-bold text-forest">Déjà courues</h2>
+        {{- end }}
+        <ol class="space-y-4">
+          {{- range . }}
+            {{ partial "edition-card.html" (dict "page" .) }}
+          {{- end }}
+        </ol>
+      {{- else }}
+        <p class="text-center text-lg text-body">
+          Aucune édition n'a encore été courue. La première arrive.
+        </p>
+      {{- end }}
+    </div>
+  </section>
+
+  {{ partial "sections/follow.html" . }}
+{{ end }}

@@ -1,0 +1,24 @@
+{{- /*
+  Returns one of the YAML files sitting in an edition's page bundle, decoded.
+
+  The rules, the practical notes and the questions used to live in data/, which
+  is site-wide: there was one FAQ, and it was the FAQ of the only edition there
+  had ever been. They belong to the edition instead, next to its dates and its
+  loop, so that its archived page keeps its own answers when a second edition
+  arrives with different ones.
+
+  An absent file returns an empty slice rather than failing: the sections that
+  call this all open with `with`, so an edition that has no practical notes
+  simply has no "Infos pratiques".
+
+  Parameters:
+    page — the edition page (required)
+    name — the file name inside its bundle, e.g. "faq.yaml" (required)
+*/ -}}
+{{- $result := slice }}
+
+{{- with .page.Resources.Get .name }}
+  {{- $result = . | transform.Unmarshal }}
+{{- end }}
+
+{{- return $result }}

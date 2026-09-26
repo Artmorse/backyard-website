@@ -91,6 +91,11 @@
      so that no paragraph shifts colour: 10.3:1 and 4.84:1 on white. */
   --ink: #364153;
   --ink-soft: #6a7282;
+
+  /* The height of the menu bar, in one place: the bar is that tall, it is pulled
+     up onto the banner by exactly that much, and every anchor on the page keeps
+     that much room above it so a heading never lands underneath. */
+  --nav-height: 4rem;
 }
 
 /* Semantic roles. Tailwind exposes each one both as a utility (bg-forest,
@@ -144,6 +149,11 @@
   body {
     max-width: 100%;
     overflow-x: hidden;
+  }
+
+  /* Room for the menu bar above anything the page scrolls to by anchor. */
+  [id] {
+    scroll-margin-top: var(--nav-height);
   }
 
   body {
@@ -287,6 +297,82 @@
     transform: none;
   }
 
+  /* The fourth pill: the one that has to read as secondary on a light background,
+     where the translucent white of `.btn-ghost` would be invisible. */
+  .btn-outline {
+    border: 1px solid var(--color-forest);
+    color: var(--color-forest);
+    font-weight: 600;
+  }
+
+  .btn-outline:hover {
+    background-color: var(--color-forest);
+    color: var(--color-white);
+  }
+
+  /* --- The menu -----------------------------------------------------------
+     Two entries in a bar the colour of the footer, held at the top of the screen.
+     The current one is a yellow pill: forest green on yellow is 5.35:1, the same
+     pairing the call to action uses.
+
+     `fixed` rather than `sticky`: main.css sets `overflow-x: hidden` on both
+     <html> and <body> to keep a phone from scrolling sideways past the full-bleed
+     hero, and that turns <body> into a scroll container of its own, inside which
+     a sticky element never sticks. */
+  .site-nav {
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 50;
+    height: var(--nav-height);
+  }
+
+  /* A page that opens on the banner opens on the banner alone: the bar is held
+     just above the screen for as long as any of the illustration is in sight, and
+     drops in once it has gone by. The observer in main.js is what adds
+     `is-pinned`, and what takes it away again when the banner comes back.
+
+     Gated on `.js`, which the head sets before the first paint: without a script
+     there is nothing to drop the bar in, so it is simply there from the start. */
+  .js .site-nav-hold {
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+  }
+
+  .js .site-nav-hold.is-pinned {
+    transform: none;
+  }
+
+  /* The pill is narrower on a phone, where "Prochaine course" and "Anciennes
+     courses" have to share one line with the logo: the two entries are the
+     navigation, so the room goes to the words rather than to the padding. It
+     stays tall enough to be a thumb's target — 40px, in a bar of 64. */
+  .nav-link {
+    display: inline-block;
+    border-radius: 9999px;
+    padding: 0.75rem 0.7rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  @media (min-width: 40rem) {
+    .nav-link {
+      padding: 0.5rem 0.9rem;
+    }
+  }
+
+  .nav-link:hover {
+    background-color: rgb(255 255 255 / 0.15);
+  }
+
+  .nav-link.is-current {
+    background-color: var(--color-warm);
+    color: var(--color-forest);
+  }
+
+  .nav-link.is-current:hover {
+    background-color: var(--color-warm);
+  }
+
   /* --- Hero --------------------------------------------------------------
      The wordmark and its two lines sit on the illustration itself. The scrim
      behind them takes it down a quarter of a stop; this is what keeps them
@@ -315,6 +401,23 @@
 
   .card:hover {
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  }
+
+  /* --- The archive -------------------------------------------------------
+     One card per edition, and the whole card is the link: a row of text with a
+     target the size of a thumb rather than a "lire la suite" buried in it. The
+     arrow leans forward on hover, which is the only thing that moves — the card
+     itself already lifts, from `.card:hover` above. */
+  .edition-card {
+    display: flex;
+  }
+
+  .edition-card-arrow {
+    transition: transform 0.3s ease;
+  }
+
+  .edition-card:hover .edition-card-arrow {
+    transform: translateX(4px);
   }
 
   /* --- Sections ----------------------------------------------------------- */
@@ -353,8 +456,8 @@
      find-in-page on its own, so there is nothing to script here.
 
      White panels: the section itself is beige, its turn in the alternation
-     home.html lays out. These were beige on white until that alternation
-     shifted; if the section ever goes back to white, this goes back to
+     editions/single.html lays out. These were beige on white until that
+     alternation shifted; if the section ever goes back to white, this goes back to
      `--color-background` with it. */
   .faq-item {
     background-color: var(--color-surface);

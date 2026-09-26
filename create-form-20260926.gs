@@ -7,6 +7,9 @@
  *  3. Sélectionne la fonction "createInscriptionForm" et clique sur ▶ Exécuter
  *  4. Autorise le script (première exécution uniquement)
  *  5. Le lien du formulaire s'affiche dans le journal d'exécution (Ctrl+Enter / Affichage → Journaux)
+ *  6. Ouvre le formulaire et charge assets/img/banner.png en image d'en-tête (🎨) :
+ *     Forms en déduit ses couleurs, c'est le seul habillage à faire à la main —
+ *     et ce qui donne le même thème qu'au formulaire de la liste de diffusion.
  */
 function createInscriptionForm() {
   var form = FormApp.create('Loop & Bloom — Inscription à la course');

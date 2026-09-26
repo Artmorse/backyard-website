@@ -1,0 +1,42 @@
+{{- /*
+  One edition, as a link.
+
+  The same component serves the archive at /editions/ and the short teaser on the
+  landing page, so the two never drift apart. The whole card is the link — a row
+  of text with a target the size of a thumb, rather than a "lire la suite"
+  somewhere inside it.
+
+  The number of runners is shown only on an edition that has been run. It is a
+  count of who turned up, not of who registered, so an edition still ahead has
+  nothing truthful to put there.
+
+  Parameters:
+    page — the edition page (required)
+*/ -}}
+{{- with .page }}
+  {{- $e := .Params.event }}
+  <li>
+    <a href="{{ .RelPermalink }}"
+       class="card edition-card flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
+      <span class="min-w-0">
+        <span class="block text-2xl font-bold text-forest">{{ .Title }}</span>
+        <span class="mt-1 block text-body">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ $e.dateLong }}</time>
+          {{- with $e.area }} — {{ . }}{{ end }}
+        </span>
+      </span>
+
+      <span class="flex shrink-0 items-center gap-4">
+        {{- with and .Params.archived .Params.participants }}
+          <span class="rounded-full bg-beige px-4 py-2 font-semibold text-forest">
+            {{ . }} {{ cond (eq . 1) "coureur" "coureurs" }}
+          </span>
+        {{- end }}
+        <svg class="edition-card-arrow h-6 w-6 text-meadow" fill="none" stroke="currentColor"
+             stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12l-7.5 7.5M21 12H3"/>
+        </svg>
+      </span>
+    </a>
+  </li>
+{{- end }}

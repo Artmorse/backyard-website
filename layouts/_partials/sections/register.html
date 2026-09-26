@@ -1,12 +1,12 @@
 {{- /*
-  The closing call to action.
+  The closing call to action of an edition that is still to come.
 
-  It has the two moods of the button it wraps. While the registrations are open
-  it invites; once `registration.closed` is set the button below is greyed out,
-  so the words around it stop asking for a sign-up and thank instead — the small
-  print too, which otherwise would still be quoting a price and a form.
+  It has the two moods of the button it wraps. While the registrations are open it
+  invites; once the edition's `registration.closed` is set the button below is
+  greyed out, so the words around it stop asking for a sign-up and thank instead —
+  the small print too, which otherwise would still be quoting a price and a form.
 */ -}}
-{{- $r := site.Params.registration }}
+{{- $r := .Params.registration }}
 {{- $note := $r.note }}
 {{- if $r.closed }}{{ $note = $r.closedNote }}{{ end }}
 <section id="register" class="reveal bg-meadow px-4 py-20">
@@ -19,7 +19,16 @@
       <p class="mb-8 text-xl">Rejoignez-nous pour une journée inoubliable au bord du canal.</p>
     {{- end }}
 
-    {{ partial "cta.html" (dict "size" "lg") }}
+    {{ partial "cta.html" (dict
+        "href" $r.url
+        "text" $r.label
+        "fallback" "Inscriptions à venir"
+        "closed" $r.closed
+        "closedText" $r.closedLabel
+        "size" "lg"
+        "pulse" true
+        "blank" true
+    ) }}
 
     {{- with $note }}
       <p class="mt-6 text-sm opacity-90">{{ . }}</p>

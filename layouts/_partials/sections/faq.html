@@ -1,5 +1,5 @@
 {{- /*
-  The questions, grouped, from data/faq.yaml.
+  The questions, grouped, from faq.yaml in the edition's own bundle.
 
   Native <details>: the browser handles opening, keyboard operation and
   find-in-page on its own, so this section needs no script at all.
@@ -8,11 +8,12 @@
   here. That class only exists in the rendered HTML, which is exactly why the
   Tailwind build is deferred to the end of the Hugo build — see head/css.html.
 */ -}}
+{{- $groups := partial "func/data.html" (dict "page" . "name" "faq.yaml") }}
 <section id="faq" class="reveal bg-beige px-4 py-20">
   <div class="mx-auto max-w-4xl">
     {{ partial "section-heading.html" (dict "text" "Questions fréquentes") }}
 
-    {{- range $i, $group := hugo.Data.faq }}
+    {{- range $i, $group := $groups }}
       {{- $accent := default "meadow" $group.accent }}
       <h3 class="mb-4 text-2xl font-bold text-{{ $accent }} {{ if $i }}mt-12{{ end }}">
         {{ $group.title }}

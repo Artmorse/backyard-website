@@ -1,15 +1,19 @@
 {{- /*
-  The countdown to the first start.
+  The countdown to the first start of an edition still to come.
 
-  The target is rendered onto `data-countdown` from hugo.toml, with its UTC
-  offset, and main.js reads it from there — the date is written in one place for
-  the whole site.
+  The target is the page's own `date`, rendered onto `data-countdown` with its
+  UTC offset, and main.js reads it from there — the date is written in one place,
+  the edition's front matter.
 
-  The cells read "--" until the script fills them: that is what a visitor
-  without JavaScript is left with, which is why the date itself is stated in
-  full just below rather than only in the figures.
+  The cells read "--" until the script fills them: that is what a visitor without
+  JavaScript is left with, which is why the date itself is stated in full just
+  below rather than only in the figures.
+
+  An archived edition gets recap.html in this slot instead. Counting down to a
+  date that has been and gone would be absurd, and the figures a visitor wants
+  by then are how many people ran.
 */ -}}
-{{- $e := site.Params.event }}
+{{- $e := .Params.event }}
 {{- $units := slice
       (dict "unit" "days" "label" "Jours")
       (dict "unit" "hours" "label" "Heures")
@@ -20,7 +24,7 @@
   <div class="mx-auto max-w-4xl text-center">
     <h2 class="mb-8 text-3xl font-bold md:text-4xl">Compte à rebours</h2>
 
-    <div class="grid grid-cols-4 gap-4 md:gap-8" data-countdown="{{ $e.startsAt }}">
+    <div class="grid grid-cols-4 gap-4 md:gap-8" data-countdown="{{ .Date.Format "2006-01-02T15:04:05Z07:00" }}">
       {{- range $units }}
         <div class="rounded-2xl bg-white/10 p-4 md:p-6">
           <div class="mb-2 text-4xl font-bold md:text-6xl" data-countdown-unit="{{ .unit }}">--</div>

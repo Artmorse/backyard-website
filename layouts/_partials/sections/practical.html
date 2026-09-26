@@ -1,11 +1,12 @@
-{{- /* The practical notes, from data/practical.yaml.
+{{- /* The practical notes, from practical.yaml in the edition's own bundle.
 
-       White section, beige notes: the alternation set out in home.html. */ -}}
+       White section, beige notes: the alternation set out in editions/single.html. */ -}}
+{{- $notes := partial "func/data.html" (dict "page" . "name" "practical.yaml") }}
 <section id="practical" class="reveal bg-white px-4 py-20">
   <div class="mx-auto max-w-4xl">
     {{ partial "section-heading.html" (dict "text" "Infos pratiques") }}
 
-    {{- with hugo.Data.practical }}
+    {{- with $notes }}
       <div class="space-y-6">
         {{- range . }}
           <div class="card bg-beige p-6">

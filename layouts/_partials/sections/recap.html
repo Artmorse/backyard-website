@@ -1,0 +1,45 @@
+{{- /*
+  What an archived edition puts where its countdown used to be.
+
+  Same deep green band, same grid of large figures — a visitor who saw the page
+  before the race recognises the shape of it — but the numbers are the ones that
+  only exist afterwards: how many people turned up, how long the loop was, how
+  long the day ran.
+
+  `participants` is the one fact on this page that is not a plan: it is entered by
+  hand in the edition's front matter once the race has been run, and it is also
+  what moves the edition into the archive. See the note on `archived` there.
+*/ -}}
+{{- $e := .Params.event }}
+{{- $figures := slice }}
+{{- with .Params.participants }}
+  {{- $figures = $figures | append (dict "value" . "label" (cond (eq . 1) "Coureur au départ" "Coureurs au départ")) }}
+{{- end }}
+{{- with $e.lapDistance }}
+  {{- $figures = $figures | append (dict "value" . "label" "Par tour") }}
+{{- end }}
+{{- $figures = $figures | append (dict "value" (printf "%s–%s" $e.firstStart $e.lastCall) "label" "La journée") }}
+
+<section class="reveal bg-forest px-4 py-16 text-white">
+  <div class="mx-auto max-w-4xl text-center">
+    <h2 class="mb-2 text-3xl font-bold md:text-4xl">C'est dans les archives</h2>
+    <p class="mb-8 text-lg opacity-90">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ $e.dateLong }}</time>
+      — cette édition a été courue.
+    </p>
+
+    <div class="grid gap-4 sm:grid-cols-3 md:gap-8">
+      {{- range $figures }}
+        <div class="rounded-2xl bg-white/10 p-6">
+          <div class="mb-2 text-4xl font-bold md:text-5xl">{{ .value }}</div>
+          <div class="text-sm opacity-90 md:text-base">{{ .label }}</div>
+        </div>
+      {{- end }}
+    </div>
+
+    <p class="mt-8 text-lg opacity-90">
+      Merci à tous ! Le reste de cette page est laissé tel quel : la carte et la
+      trace GPX, les infos pratiques et la FAQ de la journée.
+    </p>
+  </div>
+</section>

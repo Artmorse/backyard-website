@@ -1,16 +1,34 @@
 {{- /*
-  The opening: the illustration full screen, the wordmark over it, and the two
-  ways on — register, or read first.
+  The opening: the illustration full screen, the wordmark over it, and the ways
+  on from there.
 
-  The banner used to be a CSS background-image pointing at the 1.3 MB source.
-  It is an <img> now so it can be served as AVIF or WebP at the width the
-  screen actually asks for; `object-cover` reproduces `center/cover`.
+  Every page that opens on a hero opens on this one — the landing page and each
+  edition — so the lines and the buttons are passed in rather than read from the
+  configuration. What they say is the whole difference between "pas de date pour
+  le moment" and "samedi 26 septembre, inscrivez-vous".
+
+  The banner used to be a CSS background-image pointing at the 1.3 MB source. It
+  is an <img> now so it can be served as AVIF or WebP at the width the screen
+  actually asks for; `object-cover` reproduces `center/cover`.
 
   No `.reveal` here: this section is what the visitor lands on, so it is never
   faded in.
+
+  Parameters:
+    title    — the big line (required)
+    tagline  — the line under it
+    meta     — the small line under that
+    badge    — a pill above the title, for an edition that has been run
+    actions  — a slice of dicts, each handed to cta.html
+    hint     — false to drop the scroll arrow
 */ -}}
-{{- $e := site.Params.event }}
-<section class="relative h-dvh min-h-[600px] overflow-hidden">
+{{- $badge := default "" .badge }}
+{{- $actions := default slice .actions }}
+{{- $hint := default true .hint }}
+{{- /* `data-nav-cue`: this section is what the menu bar waits for. The bar is held
+       above the screen while any of the illustration is still in sight, and drops
+       in once it has gone by — see nav.html and main.js. */}}
+<section class="relative h-dvh min-h-[600px] overflow-hidden" data-nav-cue>
   {{- with site.Params.images.banner }}
     {{ partial "picture.html" (dict
         "path" .
@@ -25,28 +43,41 @@
          it, so it is dimmed a quarter of a stop. */}}
   <div class="relative z-10 flex h-full items-center justify-center bg-black/25">
     <div class="px-4 text-center text-white text-shadow-hero">
-      <h1 class="mb-6 font-display text-7xl font-bold tracking-tight md:text-9xl">
-        {{ site.Title }}
-      </h1>
-      <p class="mb-4 text-2xl md:text-3xl">{{ $e.tagline }}</p>
-      <p class="mb-10 text-lg opacity-90 md:text-xl">
-        <time datetime="{{ $e.date }}">{{ $e.dateShort }}</time> • {{ $e.region }}
-      </p>
+      {{- with $badge }}
+        <p class="mb-6 inline-block rounded-full border border-white/60 bg-white/15 px-5 py-2 text-sm font-semibold tracking-wide uppercase backdrop-blur-sm">
+          {{ . }}
+        </p>
+      {{- end }}
 
-      <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
-        {{ partial "cta.html" (dict "size" "md") }}
-        <a href="#event" class="btn btn-ghost px-8 py-5 text-lg">
-          Découvrir l'événement
-        </a>
-      </div>
+      <h1 class="mb-6 font-display text-7xl font-bold tracking-tight md:text-9xl">
+        {{ .title }}
+      </h1>
+
+      {{- with .tagline }}
+        <p class="mb-4 text-2xl md:text-3xl">{{ . }}</p>
+      {{- end }}
+
+      {{- with .meta }}
+        <p class="mb-10 text-lg opacity-90 md:text-xl">{{ . | safeHTML }}</p>
+      {{- end }}
+
+      {{- with $actions }}
+        <div class="flex flex-col items-center justify-center gap-4 sm:flex-row">
+          {{- range . }}
+            {{ partial "cta.html" . }}
+          {{- end }}
+        </div>
+      {{- end }}
     </div>
   </div>
 
   {{- /* Scroll hint. Decorative: the section below it is reachable by every
          other means. */}}
-  <div class="absolute bottom-8 left-1/2 z-10 -translate-x-1/2">
-    <svg class="floating h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
-    </svg>
-  </div>
+  {{- if $hint }}
+    <div class="absolute bottom-8 left-1/2 z-10 -translate-x-1/2">
+      <svg class="floating h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+      </svg>
+    </div>
+  {{- end }}
 </section>

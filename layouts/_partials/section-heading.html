@@ -8,10 +8,16 @@
   Parameters:
     text  — the heading (required)
     class — extra classes, for the rare heading that needs different spacing
+    color — the text colour utility; forest green on the light sections, white on
+            the deep green and meadow ones. A parameter rather than something
+            passed through `class`, because two competing colour utilities on the
+            same element are settled by the order Tailwind happens to emit them
+            in, not by the order they are written here.
 */ -}}
 {{- $text := .text }}
 {{- $extra := default "mb-12" .class }}
+{{- $color := default "text-forest" .color }}
 
-<h2 class="text-4xl md:text-5xl font-bold {{ $extra }} text-center text-forest">
+<h2 class="text-4xl md:text-5xl font-bold {{ $extra }} text-center {{ $color }}">
   {{- replace $text "{brand}" (partial "func/brand.html" .) | safeHTML -}}
 </h2>

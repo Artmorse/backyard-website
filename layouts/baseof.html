@@ -6,6 +6,14 @@
 <body class="bg-beige text-forest">
   {{- partial "daisy-cursor.html" . }}
 
+  {{- /* The pages that open on the full-screen banner hold the bar back until the
+         visitor scrolls — the landing page, and each edition. The archive and the
+         404 open on a section of their own and carry it from the start. */}}
+  {{- partial "nav.html" (dict
+      "page" .
+      "hold" (or .IsHome (and .IsPage (eq .Section "editions")))
+  ) }}
+
   <main id="content">
     {{- block "main" . }}{{ end }}
   </main>
