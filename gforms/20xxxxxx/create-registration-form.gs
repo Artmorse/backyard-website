@@ -1,0 +1,105 @@
+/**
+ * Génère le Google Form d'inscription à la course "Loop & Bloom".
+ *
+ * C'est le formulaire de la prochaine édition, qui n'a pas encore de date : il
+ * part de celui de la 1re (../20260926/create-registration-form.gs), qui reste
+ * tel qu'il a été rempli, et porte déjà ce qu'on a changé depuis — la question
+ * sur le droit à l'image. Une fois la date fixée, renomme le dossier
+ * (gforms/AAAAMMJJ/) et vérifie le prix et le repas avant de lancer le script.
+ *
+ * Utilisation :
+ *  1. Va sur https://script.google.com → Nouveau projet
+ *  2. Colle tout ce fichier dans l'éditeur
+ *  3. Sélectionne la fonction "createInscriptionForm" et clique sur ▶ Exécuter
+ *  4. Autorise le script (première exécution uniquement)
+ *  5. Le lien du formulaire s'affiche dans le journal d'exécution (Ctrl+Enter / Affichage → Journaux)
+ *  6. Ouvre le formulaire et charge assets/img/banner.png en image d'en-tête (🎨) :
+ *     Forms en déduit ses couleurs, c'est le seul habillage à faire à la main —
+ *     et ce qui donne le même thème qu'au formulaire de la liste de diffusion.
+ */
+function createInscriptionForm() {
+  var form = FormApp.create('Loop & Bloom — Inscription à la course');
+
+  form.setDescription(
+    'Inscris-toi à la course Loop & Bloom ! 🌸\n\n' +
+    'Participation : 10 € par personne.\n\n' +
+    'Pour ne rien manquer (news, horaires, dernières infos), suis-nous sur Instagram : @loopandbloom.backyard → https://instagram.com/loopandbloom.backyard\n\n' +
+    'Un doute ? Écris-nous à loopandbloom.backyard@gmail.com ou contacte nous sur Instagram.'
+  );
+
+  form.setCollectEmail(false);        // on collecte l'email via une question dédiée
+  form.setProgressBar(true);
+  form.setConfirmationMessage(
+    'Merci pour ton inscription ! 🎉 On te tient au courant. ' +
+    'Pense à nous suivre sur Instagram @loopandbloom.backyard pour les dernières news.'
+  );
+
+  // 1. Décharge de responsabilité (checkbox obligatoire)
+  var decharge = form.addCheckboxItem();
+  decharge.setTitle('Décharge de responsabilité')
+    .setHelpText(
+      'Je participe à la course sous ma propre responsabilité et dégage les ' +
+      'organisateurs de toute responsabilité en cas d\'accident ou de blessure.'
+    )
+    .setChoiceValues(['J\'accepte et je décharge les organisateurs de toute responsabilité'])
+    .setRequired(true);
+
+  // 2. Nom
+  form.addTextItem()
+    .setTitle('Nom')
+    .setRequired(true);
+
+  // 3. Prénom
+  form.addTextItem()
+    .setTitle('Prénom')
+    .setRequired(true);
+
+  // 4. Adresse mail
+  var email = form.addTextItem();
+  email.setTitle('Adresse mail')
+    .setRequired(true);
+  var emailValidation = FormApp.createTextValidation()
+    .setHelpText('Merci de saisir une adresse mail valide.')
+    .requireTextIsEmail()
+    .build();
+  email.setValidation(emailValidation);
+
+  // 5. Téléphone
+  form.addTextItem()
+    .setTitle('Téléphone')
+    .setRequired(true);
+
+  // 6. Repas de fin de course
+  form.addMultipleChoiceItem()
+    .setTitle('Repas à la fin de la course')
+    .setHelpText('Que préfères-tu pour l\'après-course ?')
+    .setChoiceValues(['Resto', 'Pique-nique', 'Bar'])
+    .setRequired(true);
+
+  // 7. Droit à l'image (obligatoire) — ajouté après la 1re édition, qui a fini
+  //    en photos sur le site et sur Instagram sans l'avoir demandé à l'avance.
+  //    Un choix Oui / Non plutôt qu'une case à cocher : refuser doit être aussi
+  //    simple qu'accepter, et ne pas empêcher de s'inscrire.
+  form.addMultipleChoiceItem()
+    .setTitle('Droit à l\'image')
+    .setHelpText(
+      'On prend des photos pendant la course et on en publie certaines sur le site ' +
+      'et sur Instagram (@loopandbloom.backyard). Tu peux changer d\'avis à tout ' +
+      'moment : un mot à loopandbloom.backyard@gmail.com et on retire les photos où tu apparais.'
+    )
+    .setChoiceValues([
+      'J\'accepte que des photos où j\'apparais soient publiées sur le site et sur Instagram',
+      'Je préfère ne pas apparaître sur les photos publiées'
+    ])
+    .setRequired(true);
+
+  // 8. Questions (facultatif — servira à alimenter la FAQ)
+  form.addParagraphTextItem()
+    .setTitle('Une question ?')
+    .setHelpText('Pose ta question ici : on s\'en servira pour compléter la FAQ.')
+    .setRequired(false);
+
+  // Liens utiles dans le journal
+  Logger.log('Formulaire (édition)  : %s', form.getEditUrl());
+  Logger.log('Formulaire (à partager): %s', form.getPublishedUrl());
+}

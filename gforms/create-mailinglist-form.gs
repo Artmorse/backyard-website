@@ -1,7 +1,8 @@
 /**
  * Génère le Google Form « être prévenu de la prochaine édition » de Loop & Bloom.
  *
- * C'est le pendant de create-form-20260926.gs : celui-là inscrit à une course
+ * C'est le pendant des create-registration-form.gs rangés dans les dossiers
+ * datés à côté de lui : ceux-là inscrivent à une course
  * qui a une date, celui-ci récolte les adresses de ceux qui veulent en
  * connaître une. Entre deux éditions, c'est le seul formulaire ouvert sur le
  * site.
