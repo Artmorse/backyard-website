@@ -55,12 +55,6 @@ function createFeedbackForm() {
     .setRequired(false);
 
   form.addMultipleChoiceItem()
-    .setTitle('Combien de boucles as-tu bouclées ?')
-    .setHelpText('Si tu as couru.')
-    .setChoiceValues(['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'])
-    .setRequired(false);
-
-  form.addMultipleChoiceItem()
     .setTitle('Tu reviendrais à la prochaine édition ?')
     .setChoiceValues(['Oui, sans hésiter', 'Probablement', 'Je ne sais pas encore', 'Non'])
     .setRequired(false);
